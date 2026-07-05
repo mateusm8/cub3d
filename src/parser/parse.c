@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 11:35:17 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/05 17:43:18 by matmagal         ###   ########.fr       */
+/*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
+/*   Updated: 2026/07/05 17:43:07 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+void	parse_one(char **av)
 {
-	t_game_info *game;
-
-	if (ac == 2)
+	if (!check_file(av[1], ".cub"))
 	{
-		parse_one(av);
-		game = malloc(sizeof(t_game_info));
-		if (!game)
-			return (1);
-		init_game_info(game);
-		free(game);
+		printf("Error\nInvalid file extension (expected .cub)\n");
+		exit (1);
 	}
-	else
-	{
-		printf ("Error\nUsage: ./cub3D map.cub\n");
-		return (1);
-	}
-	return (0);
 }

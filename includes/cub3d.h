@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:11:53 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/05 17:17:02 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/05 17:35:44 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 typedef enum s_directions
 {
@@ -56,5 +57,8 @@ typedef struct s_game_info
 } t_game_info;
 
 void	init_game_info(t_game_info *game);
+void	parse_one(char **av);
+int		check_file(char *map_name, char *extension);
+int		ft_strlen(char *str);
 
 #endif

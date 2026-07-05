@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 22:07:11 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/05 16:10:36 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/05 16:48:25 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int main(int ac, char **av)
 	t_game	g;
 
 	g.win = NULL;
-	g.lenght = 32;
-	g.width = 32;
+	g.win_w = 32;
+	g.win_l = 32;
 	g.mlx = mlx_init();
 	if (!g.mlx)
 	return (write(2, "Error\nmlx_init failed\n", 23), 1);

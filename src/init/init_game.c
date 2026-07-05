@@ -6,8 +6,13 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 22:29:41 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/01 22:29:43 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/05 17:15:39 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
+
+int init_game(t_game *g)
+{
+	
+}

@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 22:49:30 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/05 15:25:37 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/05 20:00:00 by nalfonso         ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,75 @@
 
 /* ── system includes ──────────────────────────────── */
 # include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <../minilibx-linux/mlx.h>
-# include <../minilibx-linux/mlx_int.h>
+
+/* ── window ───────────────────────────────────────── */
+# define WIN_W 1200
+# define WIN_H 800
+
+/* ── texture index ────────────────────────────────── */
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
 
 /* ── structs ──────────────────────────────────────── */
+typedef struct s_texture
+{
+	char	*path;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		width;
+	int		height;
+}	t_texture;
+
+typedef struct s_map
+{
+	char	**grid;
+	int		rows;
+	int		cols;
+	int		floor_color;
+	int		ceil_color;
+}	t_map;
+
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
 
 typedef struct s_game
 {
-	void		*mlx; // Why i use this ???
+	void		*mlx;
 	void		*win;
-	double		width;
-	double		lenght;
+	void		*img;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			win_w;
+	int			win_h;
+	t_player	player;
+	t_texture	tex[4];
+	t_map		map;
 }	t_game;
 
+/* ── prototypes ───────────────────────────────────── */
+int		init_game(t_game *g);
+void	init_player(t_game *g);
+void	cleanup(t_game *g);
+int		error_exit(t_game *g, char *msg);
+int		parse_file(t_game *g, char *path);
 
 # endif

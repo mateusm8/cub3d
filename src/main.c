@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 22:07:11 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/05 15:28:50 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/05 16:10:36 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ int main(int ac, char **av)
 {
 	t_game	g;
 
-	if (ac == 1 && av)
-		printf("Cub3d\n");
-		
 	g.win = NULL;
-	g.mlx = NULL;
-	g.lenght = 64;
-	g.width = 64;
-	g.win = mlx_new_window(g.mlx, g.width * 64, g.lenght *64, "cub3d");
+	g.lenght = 32;
+	g.width = 32;
+	g.mlx = mlx_init();
+	if (!g.mlx)
+	return (write(2, "Error\nmlx_init failed\n", 23), 1);
+	g.win = mlx_new_window(g.mlx, 800, 600, "cub3d");
 	if (!g.win)
-		return (write(2, "Error\nmlx_new_windows failed\n", 30), 1);	
+	return (write(2, "Error\nmlx_new_windows failed\n", 30), 1);
+	if (ac == 1 && av)
+	printf("Cub3d\n");
+	mlx_loop(g.mlx);	
 	return 0;
 }

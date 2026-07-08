@@ -6,27 +6,27 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 22:07:11 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/05 16:48:25 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/05 20:00:00 by nalfonso         ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-int main(int ac, char **av)
+int	render_frame(t_game *g);
+
+int	main(int ac, char **av)
 {
 	t_game	g;
 
-	g.win = NULL;
-	g.win_w = 32;
-	g.win_l = 32;
-	g.mlx = mlx_init();
-	if (!g.mlx)
-	return (write(2, "Error\nmlx_init failed\n", 23), 1);
-	g.win = mlx_new_window(g.mlx, 800, 600, "cub3d");
-	if (!g.win)
-	return (write(2, "Error\nmlx_new_windows failed\n", 30), 1);
-	if (ac == 1 && av)
-	printf("Cub3d\n");
-	mlx_loop(g.mlx);	
-	return 0;
+	if (ac != 2)
+		return (write(2, "Error\nUsage: ./Cub3d <map.cub>\n", 31), 1);
+	if (!init_game(&g))
+		return (error_exit(&g, "Init failed"), 1);
+	init_player(&g);
+	if (!parse_file(&g, av[1]))
+		return (1);
+	mlx_loop_hook(g.mlx, render_frame, &g);
+	mlx_loop(g.mlx);
+	cleanup(&g);
+	return (0);
 }

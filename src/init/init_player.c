@@ -21,3 +21,4 @@ void	init_player(t_game *g)
 	g->player.plane_x = 0.0;
 	g->player.plane_y = 0.66;
 }
+

@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:11:53 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/05 17:35:44 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/06 12:08:57 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include "get_next_line.h"
 
 typedef enum s_directions
 {
@@ -56,9 +57,10 @@ typedef struct s_game_info
 	int			has_ceil;
 } t_game_info;
 
-void	init_game_info(t_game_info *game);
+void	init_game_info(t_game_info *game, char **av);
 void	parse_one(char **av);
 int		check_file(char *map_name, char *extension);
 int		ft_strlen(char *str);
+char	*ft_strdup(const char *str);
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:35:56 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/05 17:17:16 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/06 12:06:49 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_game_info(t_game_info *game)
+void	init_game_info(t_game_info *game, char **av)
 {
-	game->map_name = NULL;
+	game->map_name = ft_strdup(av[1]);
 	game->map = NULL;
 	game->tex[NO] = NULL;
 	game->tex[SO] = NULL;

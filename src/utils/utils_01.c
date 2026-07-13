@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:26:37 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/05 17:45:36 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/06 12:08:37 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,22 @@ int	ft_strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strdup(const char *str)
+{
+	size_t	i;
+	char	*ptr;
+
+	i = 0;
+	ptr = (char *) malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	while (i < ft_strlen((char *) str))
+	{
+		ptr[i] = str[i];
+		i++;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }

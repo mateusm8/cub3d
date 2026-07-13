@@ -25,6 +25,16 @@
 # define WIN_W 1200
 # define WIN_H 800
 
+/* ── key codes ───────────────────────────────────────── */
+
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_S		115
+# define KEY_A		97
+# define KEY_D		100
+# define KEY_RIGHT
+# define KEY_LEFT
+
 /* ── texture index ────────────────────────────────── */
 # define NO 0
 # define SO 1
@@ -85,5 +95,6 @@ void	init_player(t_game *g);
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
 int		parse_file(t_game *g, char *path);
+int		handle_key(int key_code, void *param);
 
 # endif

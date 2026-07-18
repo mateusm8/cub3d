@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 23:01:29 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/18 14:34:16 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/18 17:20:25 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int handle_close(t_game *g)
 {
-	//cleanup(g); Find the cause of this 
-	(void)g;
-	exit(0);
+	//exit(0);
+	mlx_loop_end(g->mlx);
 	return (0);
 }
 

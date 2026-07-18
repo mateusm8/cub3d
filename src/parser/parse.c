@@ -58,7 +58,6 @@ int	parse_file(t_game *g, char *path)
 		{
 			if (!parse_map_section(g, fd, line))
 				return (close(fd), free(line), 0);
-			free(line);
 			break ;
 		}
 		if (line[0] != '\0' && !parse_element(g, line))

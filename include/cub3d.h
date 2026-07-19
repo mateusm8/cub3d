@@ -97,5 +97,6 @@ int		error_exit(t_game *g, char *msg);
 int		parse_file(t_game *g, char *path);
 int		handle_key(int key_code, void *param);
 int		handle_close(t_game *g);
+void	raycast(t_game *g);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/19 15:58:09 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/21 22:07:30 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void raycast(t_game *g)
 	double	cameraX;
 	double	rayDirx = 0.0;
 	double	rayDiry = 0.0;
-	double	rayDir = 0.0;
+	//double	rayDir = 0.0;
 
 	i = 0;
 	while (i < g->win_w)
 	{
 		//cameraX = camera_dir(g, (double)i);
-		cameraX = (2.0 * (double)i) / (double)g->win_w - 1;
-		rayDirx = g->player.dir_x + (g->player.plane_x * cameraX);
-		rayDiry = g->player.dir_y + (g->player.plane_y * cameraX);
-		rayDir = rayDirx / rayDiry;
-		printf("Counter [%i] -- rayDirx = %f, rayDiry = %f, rayDir = %f\n",i , rayDirx, rayDiry, rayDir);
+		cameraX = (2.0 * (double)i) / (double)g->win_w - 1.0;
+		rayDirx = (g->player.dir_x + g->player.plane_x) * cameraX;
+		rayDiry = (g->player.dir_y + g->player.plane_y) * cameraX;
+		//rayDir = rayDirx / rayDiry; rayDir = %f\n
+		printf("Counter [%i]-| CameraX = %f | rayDirx = %f | rayDiry = %f |\n", i, cameraX , rayDirx, rayDiry);
 		i++;
 	}
 }

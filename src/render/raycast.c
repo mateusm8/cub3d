@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/07/23 22:18:17 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/07/27 22:57:52 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,36 @@ void checker(t_game *g, double rayDirX, double rayDirY)
 	deltaDisX = fabs(1 / rayDirX);
 	deltaDisY = fabs(1 / rayDirY);
 	printf(" mapX = %i | mapY = %i | deltaDistX = %f | deltaDistY = %f\n", mapX, mapY, deltaDisX, deltaDisY);
+}
+
+
+/* 
+distance =  posX - mapX;
+rayDistance = deltaDisX * distance == rayDistance = (posX - mapx) * deltaDisX;
+ */
+
+
+ void implemetation(t_game *g, double sideDistX, double sideDistY, int mapX, int mapY)
+{
+ 
+  int hit = 0;
+  int side;
+
+  while (hit == 0)
+  {
+	if (sideDistX < sideDistY)
+      {
+        sideDistX += deltaDisX;
+		mapX += stepX;
+		side = 0;
+      }
+      else
+      {
+        sideDistY += deltaDistY;
+		mapY += stepY;
+		side = 1;
+      }
+	  if (g->map.grid[mapX][mapY] > 0)
+		hit = 1;
+  }
 }

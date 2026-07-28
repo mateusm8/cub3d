@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:11:53 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/06 12:08:57 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/28 18:54:31 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,28 @@ typedef struct s_game_info
 } t_game_info;
 
 void	init_game_info(t_game_info *game, char **av);
-void	parse_one(char **av);
+void	parse_one(t_game_info *game);
+void	parse_file(t_game_info *game);
+int		is_in_map(t_game_info *game, char *line, int in_map);
+int		line_is_empty(char *line);
+int		is_map_line(char *line);
+int		is_header_line(char *line);
+void	add_map_line(t_game_info *game, char *line);
+void	error_exit(char *msg);
+int		add_tex_flag(t_game_info *game, t_directions dir);
+int		is_texture_line(char *line);
+void	parse_texture_line(t_game_info *game, char *line);
+void	change_tex_status(t_game_info *game, int i, char *line, t_directions tex);
+int		is_color_line(char *line);
+void	parse_color_line(t_game_info *game, char *line);
 int		check_file(char *map_name, char *extension);
 int		ft_strlen(char *str);
 char	*ft_strdup(const char *str);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+int		ft_fitstr(char *line, int start);
+int		rm_spc(char *line, int k);
+int		ft_atoi(const char *str);
+int		ft_isdigit(char c);
+char	*ft_strtrim(char const *s1, char const *set);
 
 #endif

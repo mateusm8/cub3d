@@ -1,48 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 11:35:17 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 14:27:37 by matmagal         ###   ########.fr       */
+/*   Created: 2025/03/22 23:40:38 by matmagal          #+#    #+#             */
+/*   Updated: 2026/07/28 15:16:16 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_check(t_game_info *game)
+int	ft_atoi(const char *str)
 {
-	int	fd;
-	char *line;
+	int	i;
+	int	nb;
+	int	signal;
 
-	fd = open(game->map_name, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
+	i = 0;
+	nb = 0;
+	signal = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
 	{
-		
+		signal *= -1;
+		i++;
 	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		nb = (nb * 10) + (str[i]) - 48;
+		i++;
+	}
+	return (nb * signal);
 }
 
-int main(int ac, char **av)
+/*int	main(void)
 {
-	t_game_info *game;
-
-	if (ac == 2)
-	{
-		game = malloc(sizeof(t_game_info));
-		if (!game)
-			return (1);
-		init_game_info(game, av);
-		parse_one(game);
-		parse_file(game);
-		free(game);
-	}
-	else
-	{
-		printf ("Error\nUsage: ./cub3D map.cub\n");
-		return (1);
-	}
-	return (0);
-}
+	char 	str[] = "-591559cggrw94";
+	
+	printf("%d\n", ft_atoi(str));
+}*/

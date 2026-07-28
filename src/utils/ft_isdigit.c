@@ -1,48 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 11:35:17 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 14:27:37 by matmagal         ###   ########.fr       */
+/*   Created: 2025/03/22 21:22:22 by matmagal          #+#    #+#             */
+/*   Updated: 2026/07/28 18:12:26 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	map_check(t_game_info *game)
+int	ft_isdigit(char c)
 {
-	int	fd;
-	char *line;
-
-	fd = open(game->map_name, O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		
-	}
-}
-
-int main(int ac, char **av)
-{
-	t_game_info *game;
-
-	if (ac == 2)
-	{
-		game = malloc(sizeof(t_game_info));
-		if (!game)
-			return (1);
-		init_game_info(game, av);
-		parse_one(game);
-		parse_file(game);
-		free(game);
-	}
-	else
-	{
-		printf ("Error\nUsage: ./cub3D map.cub\n");
+	if (c >= '0' && c <= '9')
 		return (1);
-	}
 	return (0);
 }

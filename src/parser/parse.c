@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 14:39:49 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/28 20:41:43 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,7 @@ int	is_in_map(t_game_info *game, char *line, int in_map)
 		else if (is_color_line(line))
 			parse_color_line(game, line);
 		else if (is_map_line(line))
-		{
-			in_map = 1;
-			add_map_line(game, line);
-		}
+			(in_map = 1 ,add_map_line(game, line));
 		else
 			error_exit("Invalid header line");
 	}
@@ -106,4 +103,29 @@ int	is_map_line(char *line)
 		i++;
 	}
 	return (1);
+}
+
+int	add_map_line(t_game_info *game, char *line)
+{
+	char	*tmp;
+	size_t	old_size;
+	size_t	new_size;
+	int		len;
+
+	old_size = game->map_height * sizeof(char *);
+	new_size = (game->map_height + 1) * sizeof(char *);
+	tmp = ft_realloc(game->map, old_size, new_size);
+	if (!tmp)
+		exit_error();
+	game->map = tmp;
+	len = ft_strlen(line);
+	if (len < 0 && line[len - 1] == '\n')
+		len--;
+	game->map[game->map_height] = ft_substr(line, 0, len);
+	if (!game->map[game->map_height])
+		return (1);
+	if (len > game->map_width)
+		game->map_width = len;
+	game->map_height++;
+	return (0);
 }

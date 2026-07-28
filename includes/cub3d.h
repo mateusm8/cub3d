@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:11:53 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 18:54:31 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/07/28 20:17:15 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ int		rm_spc(char *line, int k);
 int		ft_atoi(const char *str);
 int		ft_isdigit(char c);
 char	*ft_strtrim(char const *s1, char const *set);
+void	*ft_memcpy(void *dest, const void *src, size_t num);
+void	*ft_realloc(void *ptr, size_t old, size_t new);
 
 #endif

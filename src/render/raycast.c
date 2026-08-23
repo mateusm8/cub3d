@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/08/02 22:45:05 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/08/23 18:51:38 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,34 @@ int	direction(int step, double	rayDir)
 	return (step);
 }
 
-void ray_calculation(t_game *g, double sideDistX, double sideDistY, double deltaDistX, double deltaDistY, int mapX, int mapY, int stepX, int stepY)
+void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDistX, double sideDistY, double deltaDistY, int x)
+{
+	double	perpWallDist;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		y;
+
+	if (side == 0)
+		perpWallDist = sideDistX - deltaDistX;
+	else if(side == 1)
+		perpWallDist = sideDistY - deltaDistY;
+	lineHeight = (int)(WIN_H/perpWallDist);
+	drawStart = -lineHeight / 2 + (WIN_H / 2);
+	drawEnd = (lineHeight / 2) + (WIN_H / 2);
+	y = drawStart;
+	while(y <= drawEnd)
+	{
+		put_pixel(g, x, y, 0xFF0000);
+		y++;
+	}
+}
+
+void ray_calculation(t_game *g, double sideDistX, double sideDistY, double deltaDistX, double deltaDistY, int mapX, int mapY, int stepX, int stepY, int x)
 {
  
   int hit = 0;
-  //int side;
+  int side;
 
   while (hit == 0)
   {
@@ -46,7 +69,7 @@ void ray_calculation(t_game *g, double sideDistX, double sideDistY, double delta
 		mapX += stepX;
 		if (mapX > g->map.cols || mapX < 0)
 			return ;	
-		//side = 0;
+		side = 0;
 	}
 	else
 	{
@@ -54,19 +77,21 @@ void ray_calculation(t_game *g, double sideDistX, double sideDistY, double delta
 		mapY += stepY;
 		if (mapY > g->map.rows || mapY < 0)
 			return ;
-		//side = 1;
+		side = 1;
 	}
 	if (g->map.grid[mapY][mapX] == '1')
 		hit = 1;
-	printf(" MapX = %i, MapY = %i  sideDistX [%f] , sideDistY [%f] , Character [%i]\n", mapX, mapY, sideDistX, sideDistY, g->map.grid[mapY][mapX]);
-  }
+	}
+	//printf("hit = %i", hit);
+	if (hit == 1)
+		distanceCalculation(g ,side, sideDistX, deltaDistX, sideDistY, deltaDistY, x);
 }
 
 /*
 	Make tests to see if actually this stp in the wall with my prntf test
 */
 
-int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY)
+int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY, int x)
 {
 	double	deltaDisX;
 	double	deltaDisY;
@@ -81,8 +106,7 @@ int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY)
 	deltaDisY = fabs(1 / rayDirY);
 	rayDistX = rayDistance(g->player.pos_x, mapX, deltaDisX, stepX);
 	rayDistY = rayDistance(g->player.pos_y, mapY, deltaDisY, stepY);
-	printf(" mapX = %i | mapY = %i | deltaDistX = %f | deltaDistY = %f | rayDistX = %f | rayDistX = %f", mapX, mapY, deltaDisX, deltaDisY, rayDistX, rayDistY);
-	ray_calculation(g, rayDistX, rayDistY, deltaDisX, deltaDisY, mapX, mapY, stepX, stepY);
+	ray_calculation(g, rayDistX, rayDistY, deltaDisX, deltaDisY, mapX, mapY, stepX, stepY, x);
 	return (0);
 }
 
@@ -104,8 +128,7 @@ void raycast(t_game *g)
 		rayDiry = g->player.dir_y + g->player.plane_y * cameraX;
 		stepX = direction(stepX, rayDirx);
 		stepY = direction(stepY, rayDiry);
-		printf("Counter [%i]-| CameraX = %f | rayDirx = %f | rayDiry = %f | stepX = %i | stepY = %i", x, cameraX , rayDirx, rayDiry, stepX, stepY);
-		if (checker(g, rayDirx, rayDiry, stepX, stepY))
+		if (checker(g, rayDirx, rayDiry, stepX, stepY, x))
 			break;
 	}
 }

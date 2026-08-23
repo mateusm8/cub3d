@@ -20,8 +20,6 @@ void put_pixel(t_game *g, int x, int y, int color)
 		return ;
 	pixel = g->addr + (y * g->line_len + x *(g->bpp / 8));
 	*(unsigned int *)pixel = color;
-	// put_pixel(g, x + 1, y, color);
-	// put_pixel(g, x, y + 1, color);
 }
 
 void draw(t_game *g)

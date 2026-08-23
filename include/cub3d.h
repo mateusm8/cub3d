@@ -99,5 +99,6 @@ int		parse_file(t_game *g, char *path);
 int		handle_key(int key_code, void *param);
 int		handle_close(t_game *g);
 void	raycast(t_game *g);
+void 	put_pixel(t_game *g, int x, int y, int color);
 
 # endif

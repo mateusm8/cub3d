@@ -33,8 +33,8 @@
 # define KEY_S		115
 # define KEY_A		97
 # define KEY_D		100
-# define KEY_RIGHT
-# define KEY_LEFT
+# define KEY_RIGHT	39
+# define KEY_LEFT	37
 
 /* ── texture index ────────────────────────────────── */
 # define NO 0
@@ -96,9 +96,13 @@ void	init_player(t_game *g);
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
 int		parse_file(t_game *g, char *path);
-int		handle_key(int key_code, void *param);
-int		handle_close(t_game *g);
 void	raycast(t_game *g);
 void 	put_pixel(t_game *g, int x, int y, int color);
+int		render_frame(t_game *g);
+
+/* ── player move ───────────────────────────────────── */
+void	move_player(t_game *g, double posX, double posY, double planeX, double planeY);
+int		handle_key(int key_code, void *param);
+int		handle_close(t_game *g);
 
 # endif

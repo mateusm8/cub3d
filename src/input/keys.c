@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 23:01:29 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/08/25 18:28:50 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/08/27 20:55:32 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int handle_key(int key_code, void *param)
 	if (key_code == KEY_ESC)
 		handle_close(g);
 	else if(key_code == KEY_W)
-		move_player(g, g->player.pos_x, g->player.pos_y + 1.0);
+		relative_movement(g, 0.5, 'F');
 	else if(key_code == KEY_S)
-		move_player(g, g->player.pos_x, g->player.pos_y - 1.0);
+		relative_movement(g, 0.5, 'B');
 	else if(key_code == KEY_A)
-		move_player(g, g->player.pos_x - 1.0, g->player.pos_y);
+		relative_movement(g, 0.5, 'L');
 	else if(key_code == KEY_D)
-		move_player(g, g->player.pos_x + 1.0, g->player.pos_y);
+		relative_movement(g, 0.5, 'R');
 	else if(key_code == KEY_RIGHT)
 		turning_player(g, 0.04);
 	else if(key_code == KEY_LEFT)

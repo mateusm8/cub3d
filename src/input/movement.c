@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/08/25 18:15:20 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/08/27 22:56:48 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,75 @@ void turning_player(t_game *g, double angle)
 	//(x' = x·cos(a) − y·sin(a), y' = x·sin(a) + y·cos(a)
 	render_frame(g);
 }
+
+static int	colision(t_game *g, double posX, double posY)
+{
+	
+	if (g->map.grid[(int)posY][(int)posX] == '1')
+		return (1);
+	return(0);
+}
+
+void	relative_movement(t_game *g, double speed, char code)
+{
+	double	posX;	//decalre this in the function 
+	double	posY;
+
+	posX = g->player.pos_x;
+	posY = g->player.pos_y;
+	if (code == 'F')
+	{
+		posX += g->player.dir_x * speed;
+		posY += g->player.dir_y * speed;
+		if (colision(g, posX, posY))
+			return ;
+		g->player.pos_x = posX;
+		g->player.pos_y = posY;
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
+		render_frame(g);
+
+	}
+	else if (code == 'B')
+	{
+		posX -= g->player.dir_x * speed;
+		posY -= g->player.dir_y * speed;
+		if (colision(g, posX, posY))
+			return ;
+		g->player.pos_x = posX;
+		g->player.pos_y = posY;
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
+		render_frame(g);
+	}
+	else if (code == 'L')
+	{
+		posX += -g->player.dir_y * speed;
+		posY += g->player.dir_x * speed;
+		if (colision(g, posX, posY))
+			return ;
+		g->player.pos_x = posX;
+		g->player.pos_y = posY;
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
+		render_frame(g);
+	}
+	else if (code == 'R')
+	{
+		posX += g->player.dir_y * speed;
+		posY += -g->player.dir_x * speed;
+		if (colision(g, posX, posY))
+			return ;
+		g->player.pos_x = posX;
+		g->player.pos_y = posY;
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
+		render_frame(g);
+	}
+}
+
+
+
+
+
+// For the same lines that i repeat in relative movement, i can do a function thah just to the update since is the same lines implement later in this way update_info();

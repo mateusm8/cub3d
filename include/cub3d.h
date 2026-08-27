@@ -105,5 +105,6 @@ void	move_player(t_game *g, double posX, double posY);
 int		handle_key(int key_code, void *param);
 int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
+void	relative_movement(t_game *g, double speed, char code);
 
 # endif

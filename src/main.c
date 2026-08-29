@@ -25,7 +25,10 @@ int	main(int ac, char **av)
 	init_player(&g);
 	if (!parse_file(&g, av[1]))
 		return (1);
+	//raycast(&g);
 	mlx_loop_hook(g.mlx, render_frame, &g);
+	mlx_hook(g.win, 2, 1L << 0, handle_key, &g);
+	mlx_hook(g.win, 17, 0, handle_close, &g);
 	mlx_loop(g.mlx);
 	cleanup(&g);
 	return (0);

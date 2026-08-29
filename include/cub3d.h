@@ -19,11 +19,22 @@
 # include <string.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <math.h>
 # include <../minilibx-linux/mlx.h>
 
 /* ── window ───────────────────────────────────────── */
 # define WIN_W 1200
 # define WIN_H 800
+
+/* ── key codes ───────────────────────────────────────── */
+
+# define KEY_ESC	65307
+# define KEY_W		119
+# define KEY_S		115
+# define KEY_A		97
+# define KEY_D		100
+# define KEY_RIGHT	65361
+# define KEY_LEFT	65363
 
 /* ── texture index ────────────────────────────────── */
 # define NO 0
@@ -85,5 +96,15 @@ void	init_player(t_game *g);
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
 int		parse_file(t_game *g, char *path);
+void	raycast(t_game *g);
+void 	put_pixel(t_game *g, int x, int y, int color);
+int		render_frame(t_game *g);
+
+/* ── player move ───────────────────────────────────── */
+void	move_player(t_game *g, double posX, double posY);
+int		handle_key(int key_code, void *param);
+int		handle_close(t_game *g);
+void	turning_player(t_game *g, double angle);
+void	relative_movement(t_game *g, double speed, char code);
 
 # endif

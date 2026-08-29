@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 14:36:52 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 14:41:42 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/08/18 20:58:11 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	change_tex_status(t_game_info *game, int i, char *line, t_directions tex)
 	{	
 		game->tex[tex] = ft_substr(line, st, ft_fitstr(line, st));
 		if (game->tex[tex] == NULL)
-			error_exit();
+			error_exit(game, "Texture allocation failed");
 		game->has_tex[tex] = 1;
 	}
 	else
-		error_exit();
+		error_exit(game, "Duplicate texture definition");
 }

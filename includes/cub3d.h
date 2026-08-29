@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:11:53 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 20:17:15 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/08/29 10:32:07 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int		is_in_map(t_game_info *game, char *line, int in_map);
 int		line_is_empty(char *line);
 int		is_map_line(char *line);
 int		is_header_line(char *line);
-void	add_map_line(t_game_info *game, char *line);
-void	error_exit(char *msg);
+int		add_map_line(t_game_info *game, char *line);
 int		add_tex_flag(t_game_info *game, t_directions dir);
 int		is_texture_line(char *line);
 void	parse_texture_line(t_game_info *game, char *line);
@@ -83,5 +82,15 @@ int		ft_isdigit(char c);
 char	*ft_strtrim(char const *s1, char const *set);
 void	*ft_memcpy(void *dest, const void *src, size_t num);
 void	*ft_realloc(void *ptr, size_t old, size_t new);
+int		check_game_struct(t_game_info *game, char *line);
+void	error_exit(t_game_info *game, char *msg);
+void	check_number(t_game_info *game, char *line, int start);
+char	*get_number(t_game_info *game ,char *line, int start, int comma);
+int		pick_color(t_game_info *game, char *line, int start, int comma);
+void	validate_map(t_game_info *game);
+int		validate_pos(t_game_info *game, int y, int x);
+int		is_walkable(char c);
+int		validade_walls(t_game_info *game);
+void	free_map(char **map);
 
 #endif

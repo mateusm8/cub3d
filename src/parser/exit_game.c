@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 11:35:17 by matmagal          #+#    #+#             */
-/*   Updated: 2026/08/29 10:27:44 by matmagal         ###   ########.fr       */
+/*   Created: 2026/08/18 13:23:28 by matmagal          #+#    #+#             */
+/*   Updated: 2026/08/29 10:31:41 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+void	error_exit(t_game_info *game, char *msg)
 {
-	t_game_info *game;
-
-	if (ac == 2)
+	if (game)
 	{
-		game = malloc(sizeof(t_game_info));
-		if (!game)
-			return (1);
-		init_game_info(game, av);
-		parse_one(game);
+		if (game->map)
+			free_map(game->map);
 		free(game);
 	}
+	if (msg)
+		printf("Error\n%s\n", msg);
 	else
-	{
-		printf ("Error\nUsage: ./cub3D map.cub\n");
-		return (1);
-	}
-	return (0);
+		printf("Error\n");
+	exit (1);
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map && map[i])
+		free(map[i++]);
+	free(map);
 }

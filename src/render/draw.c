@@ -1,35 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/01 22:07:11 by nalfonso          #+#    #+#             */
+/*   Created: 2026/07/05 20:00:00 by nalfonso          #+#    #+#             */
 /*   Updated: 2026/07/05 20:00:00 by nalfonso         ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-int	render_frame(t_game *g);
-
-int	main(int ac, char **av)
+void put_pixel(t_game *g, int x, int y, int color)
 {
-	t_game	g;
+	char *pixel;
 
-	if (ac != 2)
-		return (write(2, "Error\nUsage: ./Cub3d <map.cub>\n", 31), 1);
-	if (!init_game(&g))
-		return (error_exit(&g, "Init failed"), 1);
-	init_player(&g);
-	if (!parse_file(&g, av[1]))
-		return (1);
-	//raycast(&g);
-	mlx_loop_hook(g.mlx, render_frame, &g);
-	mlx_hook(g.win, 2, 1L << 0, handle_key, &g);
-	mlx_hook(g.win, 17, 0, handle_close, &g);
-	mlx_loop(g.mlx);
-	cleanup(&g);
-	return (0);
+	if (x >= g->win_w|| x < 0 || y >= g->win_h || y < 0)
+		return ;
+	pixel = g->addr + (y * g->line_len + x *(g->bpp / 8));
+	*(unsigned int *)pixel = color;
+}
+
+void draw(t_game *g)
+{
+	int x;
+	int y;
+	int half;
+
+	half = g->win_h / 2;
+	y = 0;
+	while (y < g->win_h)
+	{
+		x = 0;
+		while (x < g->line_len)
+		{
+			if (y < half)
+				put_pixel(g, x, y, g->map.ceil_color);
+			else
+				put_pixel(g, x, y, g->map.floor_color);
+			x++;
+		}
+		y++;
+	}
 }

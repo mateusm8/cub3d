@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 12:48:32 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 18:24:05 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	parse_one(t_game_info *game)
 {
 	if (!check_file(game->map_name, ".cub"))
-		error_exit(game, "Invalid file extension (expected .cub)");
-	parse_file(game);
+		parser_error_exit(game, "Invalid file extension (expected .cub)");
+	parse_cub_file(game);
 	validate_map(game);
 }
 
-void	parse_file(t_game_info *game)
+void	parse_cub_file(t_game_info *game)
 {
 	int	fd;
 	int	in_map;
@@ -28,7 +28,7 @@ void	parse_file(t_game_info *game)
 	
 	fd = open (game->map_name, O_RDONLY);
 	if (fd < 0)
-		error_exit(game, "Invalid fd");
+		parser_error_exit(game, "Invalid fd");
 	line = get_next_line(fd);
 	in_map = 0;
 	while (line)
@@ -37,7 +37,7 @@ void	parse_file(t_game_info *game)
 		{
 			free(line);
 			close(fd);
-			error_exit(game, "Invalid map file");
+			parser_error_exit(game, "Invalid map file");
 		}
 		free(line);
 		line = get_next_line(fd);
@@ -166,11 +166,11 @@ int	parse_player(t_game_info *game, char *line)
 void	validate_map(t_game_info *game)
 {
 	if (!game->map || game->map_height == 0)
-		error_exit(game, "Map does not exist");
+		parser_error_exit(game, "Map does not exist");
 	if (game->player_count != 1)
-		error_exit(game, "Number of players must be one");
+		parser_error_exit(game, "Number of players must be one");
 	if (!validade_walls(game))
-		error_exit(game, "Map is not closed by walls");
+		parser_error_exit(game, "Map is not closed by walls");
 }
 
 int	validate_pos(t_game_info *game, int y, int x)

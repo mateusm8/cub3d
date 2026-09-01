@@ -12,9 +12,9 @@
 
 #include "cub3d.h"
 
-void	error_exit(t_game_info *game, char *msg)
+void	parser_error_exit(t_game_info *game, char *msg)
 {
-	free_game(game);
+	free_game_info(game);
 	if (msg)
 		printf("Error\n%s\n", msg);
 	else
@@ -44,7 +44,7 @@ void	free_tex(t_game_info *game)
 	}
 }
 
-void	free_game(t_game_info *game)
+void	free_game_info(t_game_info *game)
 {
 	if (game)
 	{

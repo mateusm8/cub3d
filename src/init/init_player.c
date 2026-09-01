@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game.c                                        :+:      :+:    :+:   */
+/*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/04 11:35:56 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 12:36:07 by matmagal         ###   ########.fr       */
+/*   Created: 2026/07/01 22:29:41 by nalfonso          #+#    #+#             */
+/*   Updated: 2026/07/05 20:00:00 by nalfonso         ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
 
-void	init_game_info(t_game_info *game, char **av)
+void	init_player(t_game *g)
 {
-	*game = (t_game_info){0};
-	game->map_name = ft_strdup(av[1]);
-	if (!game->map_name)
-		parser_error_exit(game, "Invalid map name");
+	g->player.pos_x = 4.5;
+	g->player.pos_y = 8.5;
+	g->player.dir_x = -1.0;
+	g->player.dir_y = 0.0;
+	g->player.plane_x = 0.0;
+	g->player.plane_y = 0.66;
 }
+

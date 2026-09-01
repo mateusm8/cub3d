@@ -20,7 +20,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <math.h>
-# include <../minilibx-linux/mlx.h>
+# include "../minilibx-linux/mlx.h"
+# include "get_next_line.h"
 
 /* ── window ───────────────────────────────────────── */
 # define WIN_W 1200
@@ -44,6 +45,39 @@
 # define SO 1
 # define WE 2
 # define EA 3
+
+/* Parser data */
+typedef int	t_directions;
+
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_colors;
+
+typedef struct s_parse_player
+{
+	int		x;
+	int		y;
+	char	dir;
+}	t_parse_player;
+
+typedef struct s_game_info
+{
+	char		*map_name;
+	char		*tex[4];
+	t_colors	floor;
+	t_colors	ceil;
+	char		**map;
+	int		map_width;
+	int		map_height;
+	t_parse_player	player;
+	int		player_count;
+	int		has_tex[4];
+	int		has_floor;
+	int		has_ceil;
+}	t_game_info;
 
 /* ── structs ──────────────────────────────────────── */
 typedef struct s_texture
@@ -109,5 +143,49 @@ int		handle_key(int key_code, void *param);
 int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
 void	relative_movement(t_game *g, double speed, char code);
+
+
+/* Parser */
+void	init_game_info(t_game_info *game, char **av);
+void	parse_one(t_game_info *game);
+void	parse_cub_file(t_game_info *game);
+int	is_in_map(t_game_info *game, char *line, int *in_map);
+int	line_is_empty(char *line);
+int	is_map_line(char *line);
+int	add_map_line(t_game_info *game, char *line);
+int	is_texture_line(char *line);
+int	parse_texture_line(t_game_info *game, char *line);
+int	change_tex_status(t_game_info *game, int i, char *line, t_directions tex);
+int	is_color_line(char *line);
+int	parse_color_line(t_game_info *game, char *line);
+int	change_floor_status(t_game_info *game, int i, char *line);
+int	change_ceil_status(t_game_info *game, int i, char *line);
+int	check_file(char *map_name, char *extension);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
+char	*ft_substr(const char *s, unsigned int start, size_t len);
+int	rm_spc(char *line, int k);
+int	ft_isdigit(char c);
+char	*ft_strtrim(char const *s1, char const *set);
+void	*ft_memcpy(void *dest, const void *src, size_t num);
+void	*ft_realloc(void *ptr, size_t old, size_t new);
+int	check_game_struct(t_game_info *game, char *line);
+int	parse_player(t_game_info *game, char *line);
+void	parser_error_exit(t_game_info *game, char *msg);
+int	check_number(char *line, int start);
+char	*get_number(char *line, int start, int comma);
+char	*aux_get_number(char *str);
+int	pick_color(char *line, int start, int comma);
+void	validate_map(t_game_info *game);
+int	validate_pos(t_game_info *game, int y, int x);
+int	is_walkable(char c);
+int	validade_walls(t_game_info *game);
+void	free_map(char **map);
+void	free_tex(t_game_info *game);
+void	free_game_info(t_game_info *game);
+int	convert_number(char *nb);
+int	is_whitespace(char c);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
 # endif

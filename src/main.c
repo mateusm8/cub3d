@@ -26,7 +26,7 @@ void	transfer_game_data(t_game *g, t_game_info *game)
 		parser_error_exit(game, "Error");
 	while (i < game->map_height)
 	{
-		g->map.grid[i] = ft_strdup(game->map[i];
+		g->map.grid[i] = ft_strdup(game->map[i]);
 		if (!g->map.grid[i])
 			parser_error_exit(game, "Error");
 		i++;

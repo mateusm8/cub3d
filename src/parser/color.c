@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 14:39:31 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 11:24:17 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 12:23:44 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	is_color_line(char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	return ((line[i] == 'F' && line[i + 1] == ' ')
-		|| (line[i] == 'C' && line[i + 1] == ' '));
+	return ((line[i] == 'F' && is_whitespace(line[i + 1]))
+		|| (line[i] == 'C' && is_whitespace(line[i + 1])));
 }
 
 int	parse_color_line(t_game_info *game, char *line)
@@ -30,9 +30,9 @@ int	parse_color_line(t_game_info *game, char *line)
 	i = 0;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	if ((line[i] == 'F' && line[i + 1] == ' '))
+	if ((line[i] == 'F' && is_whitespace(line[i + 1])))
 		return (change_floor_status(game, i, line));
-	if ((line[i] == 'C' && line[i + 1] == ' '))
+	if ((line[i] == 'C' && is_whitespace(line[i + 1])))
 		return (change_ceil_status(game, i, line));
 	return (1);
 }
@@ -97,11 +97,28 @@ int	pick_color(char *line, int start, int comma)
 	nb = get_number(line, start, comma);
 	if (!nb)
 		return (-1);
-	color = ft_atoi(nb);
+	color = convert_number(nb);
 	free(nb);
 	if (color < 0 || color > 255)
 		return (-1);
 	return (color);
+}
+
+int	convert_number(char *nb)
+{
+	int	i;
+	int	nbr;
+
+	i = 0;
+	nbr = 0;
+	while (nb[i])
+	{
+		nbr = nbr * 10 + (nb[i] - '0');
+		if (nbr > 255)
+			return (-1);
+		i++;
+	}
+	return (nbr);
 }
 
 int	check_number(char *line, int start)
@@ -153,13 +170,24 @@ char	*get_number(char *line, int start, int comma)
 char	*aux_get_number(char *str)
 {
 	char	*trimmed;
+	int		i;
 	
+	i = 0;
 	trimmed = ft_strtrim(str, " \t");
 	free(str);
 	if (!trimmed || trimmed[0] == '\0')
 	{
 		free(trimmed);
 		return (NULL);
+	}
+	while (trimmed[i])
+	{
+		if (!ft_isdigit(trimmed[i]))
+		{
+			free(trimmed);
+			return (NULL);
+		}
+		i++;
 	}
 	return (trimmed);
 }

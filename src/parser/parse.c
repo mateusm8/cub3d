@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 11:21:03 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 12:48:32 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,6 @@ void	parse_file(t_game_info *game)
 	close(fd);
 }
 
-int	add_tex_flag(t_game_info *game, t_directions dir)
-{
-	game->has_tex[dir]++;
-	return (0);
-}
-
 int	is_in_map(t_game_info *game, char *line, int *in_map)
 {
 	if (!*in_map)
@@ -70,7 +64,7 @@ int	is_in_map(t_game_info *game, char *line, int *in_map)
 		}
 		return (1);
 	}
-	if (is_header_line(line) || line_is_empty(line))
+	if (line_is_empty(line))
 		return (1);
 	if (is_map_line(line))
 		return (add_map_line(game, line));
@@ -92,7 +86,7 @@ int	is_map_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
+	while (line[i] == ' ')
 		i++;
 	if (line[i] == '\0' || line[i] == '\n')
 		return (0);
@@ -129,7 +123,7 @@ int	add_map_line(t_game_info *game, char *line)
 	game->map[game->map_height + 1] = NULL;
 	if (len > game->map_width)
 		game->map_width = len;
-	if (parse_player(game, line))
+	if (parse_player(game, game->map[game->map_height]))
 		return (1);
 	game->map_height++;
 	return (0);
@@ -162,6 +156,7 @@ int	parse_player(t_game_info *game, char *line)
 			game->player_count++;
 			if (game->player_count > 1)
 				return (1);
+			line[i] = '0';
 		}
 		i++;
 	}
@@ -182,7 +177,7 @@ int	validate_pos(t_game_info *game, int y, int x)
 {
 	if (y < 0 || y >= game->map_height)
 		return (0);
-	if (!game->map[y] || x < 0 || x >= ft_strlen(game->map[y]))
+	if (!game->map[y] || x < 0 || (size_t)x >= ft_strlen(game->map[y]))
 		return (0);
 	if (game->map[y][x] == ' ')
 		return (0);

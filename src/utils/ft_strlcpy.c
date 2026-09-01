@@ -1,46 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/22 23:40:38 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 15:16:16 by matmagal         ###   ########.fr       */
+/*   Created: 2025/03/23 18:35:28 by matmagal          #+#    #+#             */
+/*   Updated: 2026/09/01 11:43:10 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_atoi(const char *str)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int	i;
-	int	nb;
-	int	signal;
+	size_t	i;
 
 	i = 0;
-	nb = 0;
-	signal = 1;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
+	if (size != 0)
 	{
-		signal *= -1;
-		i++;
+		while (i < size - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
-	{
-		nb = (nb * 10) + (str[i]) - 48;
-		i++;
-	}
-	return (nb * signal);
+	return (ft_strlen(src));
 }
 
 /*int	main(void)
 {
-	char 	str[] = "-591559cggrw94";
-	
-	printf("%d\n", ft_atoi(str));
+	char src[] = "Hello World";
+	char dst[50];
+
+	printf("%zu, %s\n", ft_strlcpy(dst, src, 14), dst);
+	printf("%zu\n", ft_strlen(src));
+	for (int i = 0; i < 20; i++)
+    	printf("src[%d] = %c (ASCII: %d)\n", i, src[i], src[i]);
+
 }*/

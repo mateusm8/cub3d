@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:26:37 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 14:38:32 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 12:44:12 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	check_file(char *map_name, char *extension)
 	return (1);
 }
 
-int	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (!str)
@@ -85,20 +85,4 @@ char	*ft_strdup(const char *str)
 	}
 	ptr[i] = '\0';
 	return (ptr);
-}
-
-int	ft_fitstr(char *line, int start)
-{
-	int	size;
-
-	size = 0;
-	while (line && line[start + size] != '\n' && line[start + size] != '\0')
-	{
-		while (line[start] == ' ' || line[start] == '\t')
-			start++;
-		
-		if (line[start + size] != '\n' && line[start + size] != '\0')
-			size++;
-	}
-	return (size);
 }

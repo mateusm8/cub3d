@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/08/25 21:54:31 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/01 22:20:10 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDist
 		perpWallDist = sideDistX - deltaDistX;
 	else if(side == 1)
 		perpWallDist = sideDistY - deltaDistY;
+	if (perpWallDist < epsilon)
+		perpWallDist = 0.0001;
 	lineHeight = (int)(WIN_H/perpWallDist);
 	drawStart = -lineHeight / 2 + (WIN_H / 2);
 	drawEnd = (lineHeight / 2) + (WIN_H / 2);
+	if (drawStart < 0)
+		drawStart = 0;
+	if (drawEnd >= WIN_H)
+		drawEnd = WIN_H - 1;
 	y = drawStart;
 	while(y <= drawEnd)
 	{
@@ -106,6 +112,8 @@ int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY, int
 	deltaDisY = fabs(1 / rayDirY);
 	rayDistX = rayDistance(g->player.pos_x, mapX, deltaDisX, stepX);
 	rayDistY = rayDistance(g->player.pos_y, mapY, deltaDisY, stepY);
+	if ((g->map.grid[mapY][mapX] == '1'))
+		return (1);
 	ray_calculation(g, rayDistX, rayDistY, deltaDisX, deltaDisY, mapX, mapY, stepX, stepY, x);
 	return (0);
 }

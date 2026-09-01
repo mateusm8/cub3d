@@ -26,6 +26,9 @@
 # define WIN_W 1200
 # define WIN_H 800
 
+/* ── constant ───────────────────────────────────────── */
+# define epsilon 1e-9
+
 /* ── key codes ───────────────────────────────────────── */
 
 # define KEY_ESC	65307

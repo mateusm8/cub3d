@@ -6,24 +6,24 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/08/27 22:56:48 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/08/29 21:47:00 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
 
-void	move_player(t_game *g, double posX, double posY)
-{
-	if (posX < 0 || posY < 0 || posX >= g->win_w || posY >= g->win_h)
-		return ;
-	if (g->map.grid[(int)posY][(int)posX] == '1')
-		return ;
-	g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
-	g->map.grid[(int)posY][(int)posX] = 'N';
-	g->player.pos_x = posX;
-	g->player.pos_y = posY;
-	render_frame(g);
-}
+// void	move_player(t_game *g, double posX, double posY)
+// {
+// 	if (posX < 0 || posY < 0 || posX >= g->win_w || posY >= g->win_h)
+// 		return ;
+// 	if (g->map.grid[(int)posY][(int)posX] == '1')
+// 		return ;
+// 	g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+// 	g->map.grid[(int)posY][(int)posX] = 'N';
+// 	g->player.pos_x = posX;
+// 	g->player.pos_y = posY;
+// 	render_frame(g);
+// }
 
 void turning_player(t_game *g, double angle)
 {
@@ -37,7 +37,7 @@ void turning_player(t_game *g, double angle)
 	g->player.plane_x = oldPlaneX * cos(angle) - g->player.plane_y * sin(angle);
 	g->player.plane_y = oldPlaneX * sin(angle) + g->player.plane_y * cos(angle);
 	//(x' = x·cos(a) − y·sin(a), y' = x·sin(a) + y·cos(a)
-	render_frame(g);
+	//render_frame(g);
 }
 
 static int	colision(t_game *g, double posX, double posY)
@@ -48,6 +48,15 @@ static int	colision(t_game *g, double posX, double posY)
 	return(0);
 }
 
+static void update_info(t_game *g, double posX, double posY)
+{
+	g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
+	g->map.grid[(int)posY][(int)posX] = 'N';
+	g->player.pos_x = posX;
+	g->player.pos_y = posY;
+	//render_frame(g);
+}
+
 void	relative_movement(t_game *g, double speed, char code)
 {
 	double	posX;	//decalre this in the function 
@@ -55,18 +64,16 @@ void	relative_movement(t_game *g, double speed, char code)
 
 	posX = g->player.pos_x;
 	posY = g->player.pos_y;
+	if (g->map.grid[(int)posY][(int)posX] == '1')
+		return ;
 	if (code == 'F')
 	{
 		posX += g->player.dir_x * speed;
 		posY += g->player.dir_y * speed;
 		if (colision(g, posX, posY))
 			return ;
-		g->player.pos_x = posX;
-		g->player.pos_y = posY;
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
-		render_frame(g);
-
+		else
+			update_info(g, posX, posY);
 	}
 	else if (code == 'B')
 	{
@@ -74,11 +81,8 @@ void	relative_movement(t_game *g, double speed, char code)
 		posY -= g->player.dir_y * speed;
 		if (colision(g, posX, posY))
 			return ;
-		g->player.pos_x = posX;
-		g->player.pos_y = posY;
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
-		render_frame(g);
+		else
+			update_info(g, posX, posY);
 	}
 	else if (code == 'L')
 	{
@@ -86,11 +90,8 @@ void	relative_movement(t_game *g, double speed, char code)
 		posY += g->player.dir_x * speed;
 		if (colision(g, posX, posY))
 			return ;
-		g->player.pos_x = posX;
-		g->player.pos_y = posY;
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
-		render_frame(g);
+		else
+			update_info(g, posX, posY);
 	}
 	else if (code == 'R')
 	{
@@ -98,11 +99,8 @@ void	relative_movement(t_game *g, double speed, char code)
 		posY += -g->player.dir_x * speed;
 		if (colision(g, posX, posY))
 			return ;
-		g->player.pos_x = posX;
-		g->player.pos_y = posY;
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
-		g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = 'N';
-		render_frame(g);
+		else
+			update_info(g, posX, posY);
 	}
 }
 

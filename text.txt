@@ -1,0 +1,1 @@
+After close the cagame call the free for parser from Matheus

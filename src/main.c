@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/04 11:35:17 by matmagal          #+#    #+#             */
-/*   Updated: 2026/08/29 10:27:44 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 11:33:13 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main(int ac, char **av)
 			return (1);
 		init_game_info(game, av);
 		parse_one(game);
-		free(game);
+		free_game(game);
 	}
 	else
 	{

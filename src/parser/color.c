@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 14:39:31 by matmagal          #+#    #+#             */
-/*   Updated: 2026/08/18 21:03:24 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 11:24:17 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_color_line(char *line)
 		|| (line[i] == 'C' && line[i + 1] == ' '));
 }
 
-void	parse_color_line(t_game_info *game, char *line)
+int	parse_color_line(t_game_info *game, char *line)
 {
 	int	i;
 	
@@ -31,59 +31,80 @@ void	parse_color_line(t_game_info *game, char *line)
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if ((line[i] == 'F' && line[i + 1] == ' '))
-		change_floor_status(game, i, line);
+		return (change_floor_status(game, i, line));
 	if ((line[i] == 'C' && line[i + 1] == ' '))
-		change_ceil_status(game, i, line);
+		return (change_ceil_status(game, i, line));
+	return (1);
 }
 
-void	change_floor_status(t_game_info *game, int i, char *line)
+int	change_floor_status(t_game_info *game, int i, char *line)
 {
 	int	st;
+	int	color;
 
 	st = rm_spc(line, i + 2);
-	check_number(game, line, st);
-	if (game->has_floor == 0)
-	{
-		game->floor.r = pick_color(game, line, st, 1);
-		game->floor.g = pick_color(game, line, st, 2);
-		game->floor.b = pick_color(game, line, st, 3);
-		game->has_floor = 1;
-	}
-	else
-		error_exit(game, "Duplicate floor color");
+	if (check_number(line, st))
+		return (1);
+	if (game->has_floor != 0)
+		return (1);
+	color = pick_color(line, st, 1);
+	if (color == -1)
+		return (1);
+	game->floor.r = color;
+	color = pick_color(line, st, 2);
+	if (color == -1)
+		return (1);
+	game->floor.g = color;
+	color = pick_color(line, st, 3);
+	if (color == -1)
+		return (1);
+	game->floor.b = color;
+	game->has_floor = 1;
+	return (0);
 }
 
-void	change_ceil_status(t_game_info *game, int i, char *line)
+int	change_ceil_status(t_game_info *game, int i, char *line)
 {
 	int	st;
+	int	color;
 
 	st = rm_spc(line, i + 2);
-	check_number(game, line, st);
-	if (game->has_ceil == 0)
-	{
-		game->ceil.r = pick_color(game, line, st, 1);
-		game->ceil.g = pick_color(game, line, st, 2);
-		game->ceil.b = pick_color(game, line, st, 3);
-		game->has_ceil = 1;
-	}
-	else
-		error_exit(game, "Duplicate ceiling color");
+	if (check_number(line, st))
+		return (1);
+	if (game->has_ceil != 0)
+		return (1);
+	color = pick_color(line, st, 1);
+	if (color == -1)
+		return (1);
+	game->ceil.r = color;
+	color = pick_color(line, st, 2);
+	if (color == -1)
+		return (1);
+	game->ceil.g = color;
+	color = pick_color(line, st, 3);
+	if (color == -1)
+		return (1);
+	game->ceil.b = color;
+	game->has_ceil = 1;
+	return (0);
 }
 
-int	pick_color(t_game_info *game, char *line, int start, int comma)
+int	pick_color(char *line, int start, int comma)
 {
 	char	*nb;
 	int		color;
 
-	nb = get_number(game, line, start, comma);
+	nb = get_number(line, start, comma);
+	if (!nb)
+		return (-1);
 	color = ft_atoi(nb);
 	free(nb);
 	if (color < 0 || color > 255)
-		error_exit(game, "Color component out of range");
+		return (-1);
 	return (color);
 }
 
-void	check_number(t_game_info *game, char *line, int start)
+int	check_number(char *line, int start)
 {
 	int	c_count;
 
@@ -92,40 +113,53 @@ void	check_number(t_game_info *game, char *line, int start)
 	{
 		if (!ft_isdigit(line[start]) && line[start] != ','
 			&& line[start] != ' ' && line[start] != '\t')
-			error_exit(game, "Invalid RGB format");
+			return (1);
 		if (line[start] == ',')
 			c_count++;
 		start++;
 	}
 	if (c_count != 2)
-		error_exit(game, "Failed to parse color component");
+		return (1);
+	return (0);
 }
 
-char	*get_number(t_game_info *game ,char *line, int start, int comma)
+char	*get_number(char *line, int start, int comma)
 {
-	int	i;
-	int	k;
-	int	c_count;
+	int	c_start;
+	int	end;
+	int	count;
 	char	*str;
-	char	*trimmed;
 
-	i = 0;
-	c_count = 0;
-	while (line[start + i] && c_count < comma)
+	count = 1;
+	while (count < comma)
 	{
-		if (line[start + i] == ',')
-			c_count++;
-		i++;
+		while (line[start] && line[start] != ',')
+			start++;
+		if (line[start] != ',')
+			return (NULL);
+		start++;
+		count++;
 	}
-	k = i;
-	while (k >= 0 && line[start + k] != ',')
-		k--;
-	str = ft_substr(line, start + k, i - k);
+	c_start = start;
+	while (line[start] && line[start] != ',' && line[start] != '\n')
+		start++;
+	end = start;
+	str = ft_substr(line, c_start, end - c_start);
 	if (!str)
-		error_exit(game, "Failed to parse color component");
+		return (NULL);
+	return (aux_get_number(str));
+}
+
+char	*aux_get_number(char *str)
+{
+	char	*trimmed;
+	
 	trimmed = ft_strtrim(str, " \t");
 	free(str);
-	if (!trimmed)
-		error_exit(game, "Expected 3 RGB components");
+	if (!trimmed || trimmed[0] == '\0')
+	{
+		free(trimmed);
+		return (NULL);
+	}
 	return (trimmed);
 }

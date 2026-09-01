@@ -6,7 +6,7 @@
 /*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/08/29 10:33:57 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/01 11:21:03 by matmagal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ void	parse_file(t_game_info *game)
 	in_map = 0;
 	while (line)
 	{
-		in_map = is_in_map(game, line, in_map);
+		if (is_in_map(game, line, &in_map))
+		{
+			free(line);
+			close(fd);
+			error_exit(game, "Invalid map file");
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -46,33 +51,30 @@ int	add_tex_flag(t_game_info *game, t_directions dir)
 	return (0);
 }
 
-int	is_in_map(t_game_info *game, char *line, int in_map)
+int	is_in_map(t_game_info *game, char *line, int *in_map)
 {
-	if (!in_map)
+	if (!*in_map)
 	{
 		if (line_is_empty(line))
-			;
-		else if (is_texture_line(line))
-			parse_texture_line(game, line);
-		else if (is_color_line(line))
-			parse_color_line(game, line);
-		else if (is_map_line(line))
-			in_map = check_game_struct(game, line);
-		else
-			error_exit(game, "Invalid header line");
+			return (0);
+		if (is_texture_line(line))
+			return (parse_texture_line(game, line));
+		if (is_color_line(line))
+			return (parse_color_line(game, line));
+		if (is_map_line(line))
+		{
+			if (check_game_struct(game, line))
+				return (1);
+			*in_map = 1;
+			return (0);
+		}
+		return (1);
 	}
-	else
-	{
-		if (is_header_line(line))
-			error_exit(game, "Header found after map");
-		else if (is_map_line(line))
-			add_map_line(game, line);
-		else if (line_is_empty(line))
-			error_exit(game, "Empty line inside map");
-		else
-			error_exit(game, "Invalid map line");
-	}
-	return (in_map);
+	if (is_header_line(line) || line_is_empty(line))
+		return (1);
+	if (is_map_line(line))
+		return (add_map_line(game, line));
+	return (1);
 }
 
 int	line_is_empty(char *line)
@@ -116,7 +118,7 @@ int	add_map_line(t_game_info *game, char *line)
 	new_size = (game->map_height + 2) * sizeof(char *);
 	tmp = ft_realloc(game->map, old_size, new_size);
 	if (!tmp)
-		error_exit(game, "Map allocation failed");
+		return (1);
 	game->map = tmp;
 	len = ft_strlen(line);
 	if (len > 0 && line[len - 1] == '\n')
@@ -127,26 +129,24 @@ int	add_map_line(t_game_info *game, char *line)
 	game->map[game->map_height + 1] = NULL;
 	if (len > game->map_width)
 		game->map_width = len;
-	parse_player(game, line);
+	if (parse_player(game, line))
+		return (1);
 	game->map_height++;
 	return (0);
 }
 
 int	check_game_struct(t_game_info *game, char *line)
 {
-	if (game->has_ceil == 1 && game->has_floor == 1 && game->has_tex[NO] == 1
-			&& game->has_tex[SO] == 1 && game->has_tex[WE] == 1
-			&& game->has_tex[EA] == 1)
-		{
-			if (add_map_line(game, line) != 0)
-				error_exit(game, "Failed to add map line");
+	if (game->has_ceil != 1 || game->has_floor != 1 || game->has_tex[NO] != 1
+			|| game->has_tex[SO] != 1 || game->has_tex[WE] != 1
+			|| game->has_tex[EA] != 1)
 			return (1);
-		}	
-	error_exit(game, "Missing required header data");
+	if (add_map_line(game, line))
+		return (1);
 	return (0);
 }
 
-void	parse_player(t_game_info *game, char *line)
+int	parse_player(t_game_info *game, char *line)
 {
 	int	i;
 
@@ -161,10 +161,11 @@ void	parse_player(t_game_info *game, char *line)
 			game->player.y = game->map_height;
 			game->player_count++;
 			if (game->player_count > 1)
-				error_exit(game, "Has more than one player in map");
+				return (1);
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	validate_map(t_game_info *game)

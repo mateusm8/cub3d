@@ -132,7 +132,7 @@ int		init_game(t_game *g);
 void	init_player(t_game *g);
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
-int		parse_file(t_game *g, char *path);
+//int		parse_file(t_game *g, char *path);
 void	raycast(t_game *g);
 void 	put_pixel(t_game *g, int x, int y, int color);
 int		render_frame(t_game *g);

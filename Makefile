@@ -29,11 +29,26 @@ RENDER_SRC	= $(SRC_DIR)render/draw.c \
 
 PARSER_SRC	= $(SRC_DIR)parser/parse.c \
 			  $(SRC_DIR)parser/parse_elements.c \
-			  $(SRC_DIR)parser/parse_map.c
-
+			  $(SRC_DIR)parser/parse_map.c \
+			  $(SRC_DIR)parser/color.c \
+			  $(SRC_DIR)parser/exit_game.c \
+			  $(SRC_DIR)parser/init_game.c \
+			  $(SRC_DIR)parser/textures.c \
+			  
 UTILS_SRC	= $(SRC_DIR)utils/cleanup.c \
 			  $(SRC_DIR)utils/errors.c \
-			  $(SRC_DIR)utils/math_utils.c
+			  $(SRC_DIR)utils/math_utils.c \
+			  $(SRC_DIR)utils/ft_isdigit.c \
+			  $(SRC_DIR)utils/ft_memcpy.c \
+			  $(SRC_DIR)utils/ft_realloc.c \
+			  $(SRC_DIR)utils/ft_strchr.c \
+			  $(SRC_DIR)utils/ft_strlcpy.c \
+			  $(SRC_DIR)utils/ft_strtrim.c \
+			  $(SRC_DIR)utils/ft_substr.c \
+			  $(SRC_DIR)utils/get_next_line.c \
+			  $(SRC_DIR)utils/get_next_line_utils.c \
+			  $(SRC_DIR)utils/utils_01.c \
+			  $(SRC_DIR)utils/utils_02.c 
 
 SRCS		= $(INIT_SRC) $(INPUT_SRC) $(RENDER_SRC) $(PARSER_SRC) \
 			  $(UTILS_SRC) $(SRC_DIR)main.c

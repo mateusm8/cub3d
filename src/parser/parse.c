@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:30:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 18:24:05 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/04 22:40:43 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

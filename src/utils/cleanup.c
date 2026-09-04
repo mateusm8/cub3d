@@ -12,7 +12,7 @@
 
 # include "cub3d.h"
 
-static void	free_map(t_map *map)
+static void	ft_free_map(t_map *map)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ static void	free_textures(t_game *g)
 
 void	cleanup(t_game *g)
 {
-	free_map(&g->map);
+	ft_free_map(&g->map);
 	if (g->mlx)
 		free_textures(g);
 	if (g->img && g->mlx)

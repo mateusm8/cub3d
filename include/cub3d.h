@@ -129,7 +129,7 @@ typedef struct s_game
 
 /* ── prototypes ───────────────────────────────────── */
 int		init_game(t_game *g);
-void	init_player(t_game *g);
+void	init_player(t_game *g, t_game_info *game);
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
 //int		parse_file(t_game *g, char *path);

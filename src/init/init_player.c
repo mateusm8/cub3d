@@ -12,12 +12,36 @@
 
 # include "cub3d.h"
 
-void	init_player(t_game *g)
+static void direction(t_game *g, t_game_info *game)
 {
-	g->player.pos_x = 4.5;
-	g->player.pos_y = 8.5;
-	g->player.dir_x = -1.0;
-	g->player.dir_y = 0.0;
+	if (game->player.dir == 'N')
+	{
+		g->player.dir_x = -1.0;
+		g->player.dir_y = 0.0;
+	}
+	if (game->player.dir == 'S')
+	{
+		g->player.dir_x = 1.0;
+		g->player.dir_y = 0.0;
+	}
+	if (game->player.dir == 'W')
+	{
+		g->player.dir_x = 0.0;
+		g->player.dir_y = -1.0;
+	}
+	if (game->player.dir == 'E')
+	{
+		g->player.dir_x = 0.0;
+		g->player.dir_y = 1.0;
+	}
+}
+
+
+void	init_player(t_game *g, t_game_info *game)
+{
+	g->player.pos_x = game->player.x;
+	g->player.pos_y = game->player.y;
+	direction(g, game);
 	g->player.plane_x = 0.0;
 	g->player.plane_y = 0.66;
 }

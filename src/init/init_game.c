@@ -12,7 +12,7 @@
 
 # include "cub3d.h"
 
-static void	zero_game(t_game *g)
+/* static void	zero_game(t_game *g)
 {
 	int	i;
 
@@ -34,11 +34,11 @@ static void	zero_game(t_game *g)
 		g->tex[i].img = NULL;
 		i++;
 	}
-}
+} */
 
 int	init_game(t_game *g)
 {
-	zero_game(g);
+	//zero_game(g);
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (0);

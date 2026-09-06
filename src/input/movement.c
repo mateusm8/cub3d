@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/06 19:19:24 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/06 20:08:31 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,3 @@ void	relative_movement(t_game *g, double speed, char code)
 			update_info(g, posX, posY);
 	}
 }
-
-
-
-
-
-// For the same lines that i repeat in relative movement, i can do a function thah just to the update since is the same lines implement later in this way update_info();

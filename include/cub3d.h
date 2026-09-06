@@ -130,7 +130,7 @@ typedef struct s_game
 
 /* ── Init game ───────────────────────────────────── */
 int		init_game(t_game *g);
-void	zero_game(t_game *g);
+void	zero_game(t_game *g, t_game_info *game);
 void	transfer_game_data(t_game *g, t_game_info *game);
 
 /* ── player init ───────────────────────────────────── */
@@ -143,6 +143,9 @@ int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
 void	relative_movement(t_game *g, double speed, char code);
 
+/* ── Textures ───────────────────────────────────── */
+
+void	load_textures(t_game *g);
 
 /* ── Render ───────────────────────────────────── */
 

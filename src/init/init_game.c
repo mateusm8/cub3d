@@ -12,7 +12,7 @@
 
 # include "cub3d.h"
 
-void zero_game(t_game *g)
+void zero_game(t_game *g, t_game_info *game)
 {
 	int	i;
 
@@ -25,7 +25,9 @@ void zero_game(t_game *g)
 	i = 0;
 	while (i < 4)
 	{
-		g->tex[i].path = NULL;
+		g->tex[i].path = ft_strdup(game->tex[i]);
+		if (!g->tex[i].path)
+			parser_error_exit(game, "Error");
 		g->tex[i].img = NULL;
 		i++;
 	}
@@ -54,7 +56,7 @@ void	transfer_game_data(t_game *g, t_game_info *game)
 		i++;
 	}
 	g->map.grid[i] = NULL;
-	zero_game(g);
+	zero_game(g, game);
 }
 
 int	init_game(t_game *g)

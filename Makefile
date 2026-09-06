@@ -28,8 +28,6 @@ RENDER_SRC	= $(SRC_DIR)render/draw.c \
 			  $(SRC_DIR)render/texture.c
 
 PARSER_SRC	= $(SRC_DIR)parser/parse.c \
-			  $(SRC_DIR)parser/parse_elements.c \
-			  $(SRC_DIR)parser/parse_map.c \
 			  $(SRC_DIR)parser/color.c \
 			  $(SRC_DIR)parser/exit_game.c \
 			  $(SRC_DIR)parser/init_game.c \

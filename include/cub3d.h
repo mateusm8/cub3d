@@ -127,64 +127,75 @@ typedef struct s_game
 	t_map		map;
 }	t_game;
 
-/* ── prototypes ───────────────────────────────────── */
+
+/* ── Init game ───────────────────────────────────── */
 int		init_game(t_game *g);
+void	zero_game(t_game *g);
+void	transfer_game_data(t_game *g, t_game_info *game);
+
+/* ── player init ───────────────────────────────────── */
 void	init_player(t_game *g, t_game_info *game);
-void	cleanup(t_game *g);
-int		error_exit(t_game *g, char *msg);
-//int		parse_file(t_game *g, char *path);
-void	raycast(t_game *g);
-void 	put_pixel(t_game *g, int x, int y, int color);
-int		render_frame(t_game *g);
 
 /* ── player move ───────────────────────────────────── */
-void	move_player(t_game *g, double posX, double posY);
+
 int		handle_key(int key_code, void *param);
 int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
 void	relative_movement(t_game *g, double speed, char code);
 
 
-/* Parser */
+/* ── Render ───────────────────────────────────── */
+
+int		render_frame(t_game *g);
+void	draw(t_game *g);
+void	raycast(t_game *g);
+void 	put_pixel(t_game *g, int x, int y, int color);
+
+/* ── Utils ───────────────────────────────────── */
+void	cleanup(t_game *g);
+int		error_exit(t_game *g, char *msg);
+
+/* ── Parsing ───────────────────────────────────── */
+
 void	init_game_info(t_game_info *game, char **av);
 void	parse_one(t_game_info *game);
 void	parse_cub_file(t_game_info *game);
-int	is_in_map(t_game_info *game, char *line, int *in_map);
-int	line_is_empty(char *line);
-int	is_map_line(char *line);
-int	add_map_line(t_game_info *game, char *line);
-int	is_texture_line(char *line);
-int	parse_texture_line(t_game_info *game, char *line);
-int	change_tex_status(t_game_info *game, int i, char *line, t_directions tex);
-int	is_color_line(char *line);
-int	parse_color_line(t_game_info *game, char *line);
-int	change_floor_status(t_game_info *game, int i, char *line);
-int	change_ceil_status(t_game_info *game, int i, char *line);
-int	check_file(char *map_name, char *extension);
+int		is_in_map(t_game_info *game, char *line, int *in_map);
+int		line_is_empty(char *line);
+int		is_map_line(char *line);
+int		add_map_line(t_game_info *game, char *line);
+int		is_texture_line(char *line);
+int		parse_texture_line(t_game_info *game, char *line);
+int		change_tex_status(t_game_info *game, int i, char *line, t_directions tex);
+int		is_color_line(char *line);
+int		parse_color_line(t_game_info *game, char *line);
+int		change_floor_status(t_game_info *game, int i, char *line);
+int		change_ceil_status(t_game_info *game, int i, char *line);
+int		check_file(char *map_name, char *extension);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-int	rm_spc(char *line, int k);
-int	ft_isdigit(char c);
+int		rm_spc(char *line, int k);
+int		ft_isdigit(char c);
 char	*ft_strtrim(char const *s1, char const *set);
 void	*ft_memcpy(void *dest, const void *src, size_t num);
 void	*ft_realloc(void *ptr, size_t old, size_t new);
-int	check_game_struct(t_game_info *game, char *line);
-int	parse_player(t_game_info *game, char *line);
+int		check_game_struct(t_game_info *game, char *line);
+int		parse_player(t_game_info *game, char *line);
 void	parser_error_exit(t_game_info *game, char *msg);
-int	check_number(char *line, int start);
+int		check_number(char *line, int start);
 char	*get_number(char *line, int start, int comma);
 char	*aux_get_number(char *str);
-int	pick_color(char *line, int start, int comma);
+int		pick_color(char *line, int start, int comma);
 void	validate_map(t_game_info *game);
-int	validate_pos(t_game_info *game, int y, int x);
-int	is_walkable(char c);
-int	validade_walls(t_game_info *game);
+int		validate_pos(t_game_info *game, int y, int x);
+int		is_walkable(char c);
+int		validade_walls(t_game_info *game);
 void	free_map(char **map);
 void	free_tex(t_game_info *game);
 void	free_game_info(t_game_info *game);
-int	convert_number(char *nb);
-int	is_whitespace(char c);
+int		convert_number(char *nb);
+int		is_whitespace(char c);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 

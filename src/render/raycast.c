@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/01 22:20:10 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/06 16:48:34 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,10 @@ void ray_calculation(t_game *g, double sideDistX, double sideDistY, double delta
 	if (g->map.grid[mapY][mapX] == '1')
 		hit = 1;
 	}
-	//printf("hit = %i", hit);
+	// return hit
 	if (hit == 1)
 		distanceCalculation(g ,side, sideDistX, deltaDistX, sideDistY, deltaDistY, x);
 }
-
-/*
-	Make tests to see if actually this stp in the wall with my prntf test
-*/
 
 int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY, int x)
 {

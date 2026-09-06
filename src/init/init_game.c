@@ -12,30 +12,6 @@
 
 # include "cub3d.h"
 
-// static void	zero_game(t_game *g)
-// {
-// 	int	i;
-
-// 	g->mlx = NULL;
-// 	g->win = NULL;
-// 	g->img = NULL;
-// 	g->addr = NULL;
-// 	g->win_w = WIN_W;
-// 	g->win_h = WIN_H;
-// 	g->map.grid = NULL;
-// 	//g->map.rows = 0;
-// 	//g->map.cols = 0;
-// 	g->map.floor_color = 0;
-// 	g->map.ceil_color = 0;
-// 	i = 0;
-// 	while (i < 4)
-// 	{
-// 		g->tex[i].path = NULL;
-// 		g->tex[i].img = NULL;
-// 		i++;
-// 	}
-// }
-
 void zero_game(t_game *g)
 {
 	int	i;
@@ -53,8 +29,6 @@ void zero_game(t_game *g)
 		g->tex[i].img = NULL;
 		i++;
 	}
-	// g->map.ceil_color = 0;
-	// g->map.floor_color = 0;
 }
 
 void	transfer_game_data(t_game *g, t_game_info *game)

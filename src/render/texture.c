@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:25:17 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/06 21:23:54 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:01:32 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,23 @@ void	load_textures(t_game *g)
 		}
 		mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp, &g->tex[i].line_len, &g->tex[i].endian);
 		i++;
+	}
+}
+
+int select_texture(t_game *g, int stepX, int stepY, int side)
+{	
+	if (side == 0)
+	{
+		if (stepX > 0)
+			return (NO);
+		else
+			return (SO);
+	}
+	else
+	{
+		if(stepY > 0)
+			return (WE);
+		else
+			return (EA);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/06 16:48:34 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/07 22:01:21 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,14 @@ void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDist
 	y = drawStart;
 	while(y <= drawEnd)
 	{
+		if (side == 0)
+		{
+			//NO SO
+		}
+		if (side == 1)
+		{
+			//WE EA 
+		}
 		put_pixel(g, x, y, 0xFF0000);
 		y++;
 	}

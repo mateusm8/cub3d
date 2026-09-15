@@ -40,7 +40,7 @@ static void direction(t_game *g, t_game_info *game)
 void	init_player(t_game *g, t_game_info *game)
 {
 	g->player.pos_x = game->player.x + 0.5;
-	g->player.pos_y = game->player.y;
+	g->player.pos_y = game->player.y + 0.5;
 	direction(g, game);
 	g->player.plane_x = g->player.dir_y * 0.66;
 	g->player.plane_y = -g->player.dir_x * 0.66;

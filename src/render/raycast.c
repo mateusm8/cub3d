@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/07 22:01:21 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/15 22:50:09 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,23 @@ int	direction(int step, double	rayDir)
 	return (step);
 }
 
-void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDistX, double sideDistY, double deltaDistY, int x)
+void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDistX, double sideDistY, double deltaDistY, int x,  int stepX, int stepY, double rayDirX, double rayDirY)
 {
 	double	perpWallDist;
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
 	int		y;
+	int		tex;
+	char 	*pixel;
+	int 	color;
+	int		tex_x;
+	int		tex_y;
+	double		hitY;
+	double		hitX;
+	double		wallHit;
+	double		tex_pos;
+	double		step;
 
 	if (side == 0)
 		perpWallDist = sideDistX - deltaDistX;
@@ -53,23 +63,30 @@ void	distanceCalculation(t_game *g, int side, double sideDistX, double deltaDist
 		drawStart = 0;
 	if (drawEnd >= WIN_H)
 		drawEnd = WIN_H - 1;
+	hitY = g->player.pos_y + perpWallDist * rayDirY;
+	hitX = g->player.pos_x + perpWallDist * rayDirX;
+	if (side == 0)
+		wallHit = hitY;
+	else
+		wallHit = hitX;
+	wallHit -= floor(wallHit);
+	tex = select_texture(stepX, stepY, side);
+	step = (double)g->tex->height / lineHeight;
+	tex_x = wallHit * g->tex->width;
+	tex_pos = (drawStart - WIN_H / 2 + lineHeight / 2) * step;
 	y = drawStart;
 	while(y <= drawEnd)
 	{
-		if (side == 0)
-		{
-			//NO SO
-		}
-		if (side == 1)
-		{
-			//WE EA 
-		}
-		put_pixel(g, x, y, 0xFF0000);
+		tex_y = (int)tex_pos & (g->tex->height - 1);
+		tex_pos += step;
+		pixel = g->tex[tex].addr + (tex_y * g->tex[tex].line_len + tex_x * (g->tex[tex].bpp / 8));
+		color = *(unsigned int *)pixel;
+		put_pixel(g, x, y, color);
 		y++;
 	}
 }
 
-void ray_calculation(t_game *g, double sideDistX, double sideDistY, double deltaDistX, double deltaDistY, int mapX, int mapY, int stepX, int stepY, int x)
+void ray_calculation(t_game *g, double sideDistX, double sideDistY, double deltaDistX, double deltaDistY, int mapX, int mapY, int stepX, int stepY, int x, double rayDirX, double rayDirY)
 {
  
   int hit = 0;
@@ -98,7 +115,7 @@ void ray_calculation(t_game *g, double sideDistX, double sideDistY, double delta
 	}
 	// return hit
 	if (hit == 1)
-		distanceCalculation(g ,side, sideDistX, deltaDistX, sideDistY, deltaDistY, x);
+		distanceCalculation(g ,side, sideDistX, deltaDistX, sideDistY, deltaDistY, x, stepX, stepY, rayDirX, rayDirY);
 }
 
 int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY, int x)
@@ -118,7 +135,7 @@ int checker(t_game *g, double rayDirX, double rayDirY, int stepX, int stepY, int
 	rayDistY = rayDistance(g->player.pos_y, mapY, deltaDisY, stepY);
 	if ((g->map.grid[mapY][mapX] == '1'))
 		return (1);
-	ray_calculation(g, rayDistX, rayDistY, deltaDisX, deltaDisY, mapX, mapY, stepX, stepY, x);
+	ray_calculation(g, rayDistX, rayDistY, deltaDisX, deltaDisY, mapX, mapY, stepX, stepY, x, rayDirX, rayDirY);
 	return (0);
 }
 

@@ -146,7 +146,7 @@ void	relative_movement(t_game *g, double speed, char code);
 /* ── Textures ───────────────────────────────────── */
 
 void	load_textures(t_game *g);
-int		select_texture(t_game *g, int stepX, int stepY, int side);
+int		select_texture(int stepX, int stepY, int side);
 
 /* ── Render ───────────────────────────────────── */
 

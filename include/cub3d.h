@@ -127,11 +127,40 @@ typedef struct s_game
 	t_map		map;
 }	t_game;
 
+typedef struct s_data
+{
+	int			stepX;
+	int			stepY;
+	double		rayDirX;
+	double		rayDirY;
+	int			mapX;
+	int			mapY;
+	double		deltaDistX;
+	double		deltaDistY;
+	double		rayDistX;
+	double		rayDistY;
+	int			tex;
+	char 		*pixel;
+	int 		color;
+	int			tex_x;
+	int			tex_y;
+	double		hitY;
+	double		hitX;
+	double		wallHit;
+	double		tex_pos;
+	double		step;
+}	t_data;
+
+
 
 /* ── Init game ───────────────────────────────────── */
 int		init_game(t_game *g);
 void	zero_game(t_game *g, t_game_info *game);
 void	transfer_game_data(t_game *g, t_game_info *game);
+
+
+/* ── Init structure ───────────────────────────────────── */
+void	init_data(t_data *data);
 
 /* ── player init ───────────────────────────────────── */
 void	init_player(t_game *g, t_game_info *game);
@@ -147,6 +176,9 @@ void	relative_movement(t_game *g, double speed, char code);
 
 void	load_textures(t_game *g);
 int		select_texture(int stepX, int stepY, int side);
+void 	textures_paramaters(t_game *g,t_data *data, double perpWallDist, int side, int drawStart, int lineHeight);
+void 	draw_parameters(int *drawStart, int *drawEnd, int lineHeight);
+int		direction(int step, double	rayDir);
 
 /* ── Render ───────────────────────────────────── */
 

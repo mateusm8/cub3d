@@ -6,29 +6,11 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:25:17 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/15 22:13:09 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/20 22:44:30 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "cub3d.h"
-
-void	load_textures(t_game *g)
-{
-	int	i;
-
-	i = 0;
-	while(i < 4)
-	{
-		g->tex[i].img = mlx_xpm_file_to_image(g->mlx, g->tex[i].path, &g->tex[i].width, &g->tex[i].height);
-		if (!g->tex[i].img)
-		{
-			error_exit(g, "Init Textures failed\n");
-			return ;
-		}
-		g->tex[i].addr =mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp, &g->tex[i].line_len, &g->tex[i].endian);
-		i++;
-	}
-}
 
 int select_texture(int stepX, int stepY, int side)
 {	
@@ -46,4 +28,38 @@ int select_texture(int stepX, int stepY, int side)
 		else
 			return (EA);
 	}
+}
+
+int	direction(int step, double	rayDir)
+{
+	if (rayDir < 0)
+		step = -1;
+	else
+		step = 1;	
+	return (step);
+}
+
+void draw_parameters(int *drawStart, int *drawEnd, int lineHeight)
+{
+	*drawStart = -lineHeight / 2 + (WIN_H / 2);
+	*drawEnd = (lineHeight / 2) + (WIN_H / 2);
+	if (*drawStart < 0)
+		drawStart = 0;
+	if (*drawEnd >= WIN_H)
+		*drawEnd = WIN_H - 1;
+}
+
+void textures_paramaters(t_game *g,t_data *data, double perpWallDist, int side, int drawStart, int lineHeight)
+{
+	data->hitY = g->player.pos_y + perpWallDist * data->rayDirY;
+	data->hitX = g->player.pos_x + perpWallDist * data->rayDirX;
+	if (side == 0)
+		data->wallHit = data->hitY;
+	else
+		data->wallHit = data->hitX;
+	data->wallHit -= floor(data->wallHit);
+	data->tex = select_texture(data->stepX, data->stepY, side);
+	data->step = (double)g->tex->height / lineHeight;
+	data->tex_x = data->wallHit * g->tex->width;
+	data->tex_pos = (drawStart - WIN_H / 2 + lineHeight / 2) * data->step;
 }

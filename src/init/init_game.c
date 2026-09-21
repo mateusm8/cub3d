@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
-void zero_game(t_game *g, t_game_info *game)
+void	zero_game(t_game *g, t_game_info *game)
 {
 	int	i;
 
@@ -39,10 +39,12 @@ void	transfer_game_data(t_game *g, t_game_info *game)
 
 	g->map.rows = game->map_height;
 	g->map.cols = game->map_width;
-	g->map.ceil_color = (game->ceil.r << 16) | (game->ceil.g << 8) | game->ceil.b;
-	g->map.floor_color = (game->floor.r << 16) | (game->floor.g << 8) | game->floor.b;
+	g->map.ceil_color = (game->ceil.r << 16)
+		| (game->ceil.g << 8) | game->ceil.b;
+	g->map.floor_color = (game->floor.r << 16)
+		| (game->floor.g << 8) | game->floor.b;
 	i = 0;
-	while(game->map[i])
+	while (game->map[i])
 		i++;
 	g->map.grid = malloc(sizeof(char *) * (i + 1));
 	if (!g->map.grid)

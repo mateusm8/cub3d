@@ -3,36 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/06 20:08:31 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/21 18:44:31 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
-void turning_player(t_game *g, double angle)
+void	turning_player(t_game *g, double angle)
 {
-	double	oldDirX;
-	double oldPlaneX;
+	double	olddirx;
+	double	oldplanex;
 
-	oldDirX = g->player.dir_x;
-	oldPlaneX = g->player.plane_x;
-	g->player.dir_x = oldDirX * cos(angle) - g->player.dir_y * sin(angle);
-	g->player.dir_y = oldDirX * sin(angle) + g->player.dir_y * cos(angle);
-	g->player.plane_x = oldPlaneX * cos(angle) - g->player.plane_y * sin(angle);
-	g->player.plane_y = oldPlaneX * sin(angle) + g->player.plane_y * cos(angle);
+	olddirx = g->player.dir_x;
+	oldplanex = g->player.plane_x;
+	g->player.dir_x = olddirx * cos(angle) - g->player.dir_y * sin(angle);
+	g->player.dir_y = olddirx * sin(angle) + g->player.dir_y * cos(angle);
+	g->player.plane_x = oldplanex * cos(angle) - g->player.plane_y * sin(angle);
+	g->player.plane_y = oldplanex * sin(angle) + g->player.plane_y * cos(angle);
 }
 
 static int	colision(t_game *g, double posX, double posY)
 {
-	if (g->map.grid[(int)posY][(int)posX] == '1')
-		return (1);
-	return(0);
+	return (g->map.grid[(int)posY][(int)posX] == '1');
 }
 
-static void update_info(t_game *g, double posX, double posY)
+static void	update_info(t_game *g, double posX, double posY)
 {
 	g->map.grid[(int)g->player.pos_y][(int)g->player.pos_x] = '0';
 	g->map.grid[(int)posY][(int)posX] = 'N';
@@ -40,49 +38,38 @@ static void update_info(t_game *g, double posX, double posY)
 	g->player.pos_y = posY;
 }
 
-void	relative_movement(t_game *g, double speed, char code)
+static void set_movement(t_game *g, double *pos_x, double *pos_y, double speed, char code)
 {
-	double	posX;	//decalre this in the function 
-	double	posY;
-
-	posX = g->player.pos_x;
-	posY = g->player.pos_y;
-	if (g->map.grid[(int)posY][(int)posX] == '1')
-		return ;
 	if (code == 'F')
 	{
-		posX += g->player.dir_x * speed;
-		posY += g->player.dir_y * speed;
-		if (colision(g, posX, posY))
-			return ;
-		else
-			update_info(g, posX, posY);
+		*pos_x += g->player.dir_x * speed;
+		*pos_y += g->player.dir_y * speed;
 	}
 	else if (code == 'B')
 	{
-		posX -= g->player.dir_x * speed;
-		posY -= g->player.dir_y * speed;
-		if (colision(g, posX, posY))
-			return ;
-		else
-			update_info(g, posX, posY);
+		*pos_x -= g->player.dir_x * speed;
+		*pos_y -= g->player.dir_y * speed;
 	}
 	else if (code == 'L')
 	{
-		posX += -g->player.dir_y * speed;
-		posY += g->player.dir_x * speed;
-		if (colision(g, posX, posY))
-			return ;
-		else
-			update_info(g, posX, posY);
+		*pos_x += -g->player.dir_y * speed;
+		*pos_y += g->player.dir_x * speed;
 	}
 	else if (code == 'R')
 	{
-		posX += g->player.dir_y * speed;
-		posY += -g->player.dir_x * speed;
-		if (colision(g, posX, posY))
-			return ;
-		else
-			update_info(g, posX, posY);
+		*pos_x += g->player.dir_y * speed;
+		*pos_y += -g->player.dir_x * speed;
 	}
+}
+
+void	relative_movement(t_game *g, double speed, char code)
+{
+	double	pos_x;
+	double	pos_y;
+
+	pos_x = g->player.pos_x;
+	pos_y = g->player.pos_y;
+	set_movement(g, &pos_x, &pos_y, speed, code);
+	if (!colision(g, pos_x, pos_y))
+		update_info(g, pos_x, pos_y);
 }

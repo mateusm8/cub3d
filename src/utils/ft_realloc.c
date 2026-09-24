@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 19:49:47 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 20:36:23 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:18:46 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	*ft_realloc(void *ptr, size_t old, size_t new)
 {
 	void	*new_ptr;
 	size_t	copy_size;
+
 	if (ptr == NULL)
 		return (malloc(new));
 	if (new == 0)

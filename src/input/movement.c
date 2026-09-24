@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalfonso <nalfonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/21 18:44:31 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:13:05 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	update_info(t_game *g, double posX, double posY)
 	g->player.pos_y = posY;
 }
 
-static void set_movement(t_game *g, double *pos_x, double *pos_y, double speed, char code)
+static void	set_movement(t_game *g, double *pos_x, double *pos_y,
+	double speed, char code)
 {
 	if (code == 'F')
 	{

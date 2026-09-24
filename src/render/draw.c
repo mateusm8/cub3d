@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
-void put_pixel(t_game *g, int x, int y, int color)
+void	put_pixel(t_game *g, int x, int y, int color)
 {
-	char *pixel;
+	char	*pixel;
 
-	if (x >= g->win_w|| x < 0 || y >= g->win_h || y < 0)
+	if (x >= g->win_w || x < 0 || y >= g->win_h || y < 0)
 		return ;
 	pixel = g->addr + (y * g->line_len + x *(g->bpp / 8));
 	*(unsigned int *)pixel = color;
 }
 
-void draw(t_game *g)
+void	draw(t_game *g)
 {
-	int x;
-	int y;
-	int half;
+	int	x;
+	int	y;
+	int	half;
 
 	half = g->win_h / 2;
 	y = 0;

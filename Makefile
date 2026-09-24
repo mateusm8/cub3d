@@ -1,6 +1,6 @@
 # Makefile for Cub3d
 
-NAME		= Cub3d
+NAME		= cub3d
 
 # Directories
 MINILIBX	= ./minilibx-linux/libmlx.a
@@ -28,14 +28,16 @@ RENDER_SRC	= $(SRC_DIR)render/draw.c \
 			  $(SRC_DIR)render/texture.c
 
 PARSER_SRC	= $(SRC_DIR)parser/parse.c \
+			  $(SRC_DIR)parser/parse_utils.c \
+			  $(SRC_DIR)parser/parse_utils_two.c \
 			  $(SRC_DIR)parser/color.c \
+			  $(SRC_DIR)parser/color_utils.c \
 			  $(SRC_DIR)parser/exit_game.c \
 			  $(SRC_DIR)parser/init_game.c \
 			  $(SRC_DIR)parser/textures.c \
 			  
 UTILS_SRC	= $(SRC_DIR)utils/cleanup.c \
 			  $(SRC_DIR)utils/errors.c \
-			  $(SRC_DIR)utils/math_utils.c \
 			  $(SRC_DIR)utils/ft_isdigit.c \
 			  $(SRC_DIR)utils/ft_memcpy.c \
 			  $(SRC_DIR)utils/ft_realloc.c \

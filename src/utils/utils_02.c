@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_02.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/28 14:38:46 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/01 12:20:13 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:17:28 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_whitespace(char c)
 
 int	rm_spc(char *line, int k)
 {
-	while(is_whitespace(line[k]))
+	while (is_whitespace(line[k]))
 		k++;
-	return (k);	
+	return (k);
 }

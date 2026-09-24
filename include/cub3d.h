@@ -149,6 +149,10 @@ typedef struct s_data
 	double		wallHit;
 	double		tex_pos;
 	double		step;
+	int			side;
+	int			lineheight;
+	double		sideDistX;
+	double		sideDistY;
 }	t_data;
 
 
@@ -174,11 +178,12 @@ void	relative_movement(t_game *g, double speed, char code);
 
 /* ── Textures ───────────────────────────────────── */
 
-void	load_textures(t_game *g);
+int		load_textures(t_game *g);
 int		select_texture(int stepX, int stepY, int side);
-void 	textures_paramaters(t_game *g,t_data *data, double perpWallDist, int side, int drawStart, int lineHeight);
+void 	textures_paramaters(t_game *g,t_data *data, double perpWallDist, int drawStart);
 void 	draw_parameters(int *drawStart, int *drawEnd, int lineHeight);
 int		direction(int step, double	rayDir);
+void	init_perwall(t_data *data, double *perpWallDist);
 
 /* ── Render ───────────────────────────────────── */
 

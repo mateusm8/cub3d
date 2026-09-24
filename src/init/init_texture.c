@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:08:48 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/20 22:37:37 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:12:20 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	init_data(t_data *data)
 	data->rayDirX = 0.0;
 }
 
-void	load_textures(t_game *g)
+int	load_textures(t_game *g)
 {
 	int	i;
 
@@ -36,12 +36,12 @@ void	load_textures(t_game *g)
 		g->tex[i].img = mlx_xpm_file_to_image(g->mlx, g->tex[i].path,
 				&g->tex[i].width, &g->tex[i].height);
 		if (!g->tex[i].img)
-		{
-			error_exit(g, "Init Textures failed\n");
-			return ;
-		}
+			return (1);
 		g->tex[i].addr = mlx_get_data_addr(g->tex[i].img, &g->tex[i].bpp,
 				&g->tex[i].line_len, &g->tex[i].endian);
+		if (!g->tex[i].addr)
+			return (1);
 		i++;
 	}
+	return (0);
 }

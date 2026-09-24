@@ -14,8 +14,8 @@
 
 int	main(int ac, char **av)
 {
-	t_game	g;
-	t_game_info *game;
+	t_game			g;
+	t_game_info		*game;
 
 	if (ac != 2)
 		return (write(2, "Error\nUsage: ./Cub3d <map.cub>\n", 31), 1);
@@ -27,7 +27,8 @@ int	main(int ac, char **av)
 	transfer_game_data(&g, game);
 	if (!init_game(&g))
 		return (error_exit(&g, "Init failed"), 1);
-	load_textures(&g);
+	if (load_textures(&g))
+		return (error_exit(&g, "Init Textures failed\n"), 1);
 	init_player(&g, game);
 	mlx_loop_hook(g.mlx, render_frame, &g);
 	mlx_hook(g.win, 2, 1L << 0, handle_key, &g);

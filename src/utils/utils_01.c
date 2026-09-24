@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/05 17:26:37 by matmagal          #+#    #+#             */
-/*   Updated: 2026/09/04 22:44:52 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:18:06 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_file(char *map_name, char *extension)
 		k++;
 	}
 	if (map_name[i + k] != '\0' || extension[k] != '\0')
-		return ( 0);
+		return (0);
 	return (1);
 }
 

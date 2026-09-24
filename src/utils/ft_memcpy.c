@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matmagal <matmagal@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:04:20 by matmagal          #+#    #+#             */
-/*   Updated: 2026/07/28 19:49:15 by matmagal         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:18:27 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,3 @@ void	*ft_memcpy(void *dest, const void *src, size_t num)
 	}
 	return (dest);
 }
-

@@ -101,6 +101,17 @@ typedef struct s_map
 	int		ceil_color;
 }	t_map;
 
+typedef enum e_key
+{
+	K_W,
+	K_A,
+	K_S,
+	K_D,
+	K_LEFT,
+	K_RIGHT,
+	K_COUNT,
+}	t_key;
+
 typedef struct s_player
 {
 	double	pos_x;
@@ -122,7 +133,7 @@ typedef struct s_game
 	int			endian;
 	int			win_w;
 	int			win_h;
-	int			keys[6];
+	int			keys[K_COUNT];
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
@@ -167,9 +178,11 @@ void	init_player(t_game *g, t_game_info *game);
 /* ── player move ───────────────────────────────────── */
 
 int		handle_key(int key_code, void *param);
+int		handle_key_release(int key_code, void *param);
 int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
-void	relative_movement(t_game *g, double speed, char code);
+void	relative_movement(t_game *g, int code);
+void	update_player(t_game *g);
 
 /* ── Textures ───────────────────────────────────── */
 

@@ -63,6 +63,14 @@ void	transfer_game_data(t_game *g, t_game_info *game)
 
 int	init_game(t_game *g)
 {
+	int	i;
+
+	i = 0;
+	while (i <= K_COUNT)
+	{
+		g->keys[i] = 0;
+		i++;
+	}
 	g->mlx = mlx_init();
 	if (!g->mlx)
 		return (0);

@@ -32,6 +32,7 @@ int	main(int ac, char **av)
 	init_player(&g, game);
 	mlx_loop_hook(g.mlx, render_frame, &g);
 	mlx_hook(g.win, 2, 1L << 0, handle_key, &g);
+	mlx_hook(g.win, 3, 1L << 1, handle_key_release, &g);
 	mlx_hook(g.win, 17, 0, handle_close, &g);
 	mlx_loop(g.mlx);
 	cleanup(&g);

@@ -14,6 +14,7 @@
 
 int	render_frame(t_game *g)
 {
+	update_player(g);
 	draw(g);
 	raycast(g);
 	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);

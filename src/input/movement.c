@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 20:42:47 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/24 19:13:05 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/25 23:16:27 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,39 +38,41 @@ static void	update_info(t_game *g, double posX, double posY)
 	g->player.pos_y = posY;
 }
 
-static void	set_movement(t_game *g, double *pos_x, double *pos_y,
-	double speed, char code)
+static void	set_movement(t_game *g, double *pos_x, double *pos_y, int code)
 {
-	if (code == 'F')
+	double	speed;
+
+	speed = 0.05;
+	if (code == 1)
 	{
 		*pos_x += g->player.dir_x * speed;
 		*pos_y += g->player.dir_y * speed;
 	}
-	else if (code == 'B')
+	else if (code == 2)
 	{
 		*pos_x -= g->player.dir_x * speed;
 		*pos_y -= g->player.dir_y * speed;
 	}
-	else if (code == 'L')
+	else if (code == 3)
 	{
 		*pos_x += -g->player.dir_y * speed;
 		*pos_y += g->player.dir_x * speed;
 	}
-	else if (code == 'R')
+	else if (code == 4)
 	{
 		*pos_x += g->player.dir_y * speed;
 		*pos_y += -g->player.dir_x * speed;
 	}
 }
 
-void	relative_movement(t_game *g, double speed, char code)
+void	relative_movement(t_game *g, int code)
 {
 	double	pos_x;
 	double	pos_y;
 
 	pos_x = g->player.pos_x;
 	pos_y = g->player.pos_y;
-	set_movement(g, &pos_x, &pos_y, speed, code);
+	set_movement(g, &pos_x, &pos_y, code);
 	if (!colision(g, pos_x, pos_y))
 		update_info(g, pos_x, pos_y);
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 /* ── system includes ──────────────────────────────── */
@@ -28,7 +28,7 @@
 # define WIN_H 800
 
 /* ── constant ───────────────────────────────────────── */
-# define epsilon 1e-9
+# define EPSILON 1e-9
 
 /* ── key codes ───────────────────────────────────────── */
 
@@ -65,18 +65,18 @@ typedef struct s_parse_player
 
 typedef struct s_game_info
 {
-	char		*map_name;
-	char		*tex[4];
-	t_colors	floor;
-	t_colors	ceil;
-	char		**map;
-	int		map_width;
-	int		map_height;
+	char			*map_name;
+	char			*tex[4];
+	t_colors		floor;
+	t_colors		ceil;
+	char			**map;
+	int				map_width;
+	int				map_height;
 	t_parse_player	player;
-	int		player_count;
-	int		has_tex[4];
-	int		has_floor;
-	int		has_ceil;
+	int				player_count;
+	int				has_tex[4];
+	int				has_floor;
+	int				has_ceil;
 }	t_game_info;
 
 /* ── structs ──────────────────────────────────────── */
@@ -122,6 +122,7 @@ typedef struct s_game
 	int			endian;
 	int			win_w;
 	int			win_h;
+	int			keys[6];
 	t_player	player;
 	t_texture	tex[4];
 	t_map		map;
@@ -129,42 +130,36 @@ typedef struct s_game
 
 typedef struct s_data
 {
-	int			stepX;
-	int			stepY;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		rayDistX;
-	double		rayDistY;
+	int			step_x;
+	int			step_y;
+	double		raydirx;
+	double		raydiry;
+	int			map_x;
+	int			map_y;
+	double		deltadist_x;
+	double		deltadist_y;
+	double		raydist_x;
+	double		raydist_y;
 	int			tex;
-	char 		*pixel;
-	int 		color;
+	char		*pixel;
+	int			color;
 	int			tex_x;
 	int			tex_y;
-	double		hitY;
-	double		hitX;
-	double		wallHit;
+	double		hit_y;
+	double		hit_x;
+	double		wallhit;
 	double		tex_pos;
 	double		step;
 	int			side;
 	int			lineheight;
-	double		sideDistX;
-	double		sideDistY;
+	double		sidedist_x;
+	double		sidedist_y;
 }	t_data;
-
-
 
 /* ── Init game ───────────────────────────────────── */
 int		init_game(t_game *g);
 void	zero_game(t_game *g, t_game_info *game);
 void	transfer_game_data(t_game *g, t_game_info *game);
-
-
-/* ── Init structure ───────────────────────────────────── */
-void	init_data(t_data *data);
 
 /* ── player init ───────────────────────────────────── */
 void	init_player(t_game *g, t_game_info *game);
@@ -180,9 +175,10 @@ void	relative_movement(t_game *g, double speed, char code);
 
 int		load_textures(t_game *g);
 int		select_texture(int stepX, int stepY, int side);
-void 	textures_paramaters(t_game *g,t_data *data, double perpWallDist, int drawStart);
-void 	draw_parameters(int *drawStart, int *drawEnd, int lineHeight);
-int		direction(int step, double	rayDir);
+void	textures_paramaters(t_game *g, t_data *data,
+			double perpWallDist, int drawStart);
+void	draw_parameters(int *drawStart, int *drawEnd, int lineHeight);
+int		direction(int step, double rayDir);
 void	init_perwall(t_data *data, double *perpWallDist);
 
 /* ── Render ───────────────────────────────────── */
@@ -190,7 +186,7 @@ void	init_perwall(t_data *data, double *perpWallDist);
 int		render_frame(t_game *g);
 void	draw(t_game *g);
 void	raycast(t_game *g);
-void 	put_pixel(t_game *g, int x, int y, int color);
+void	put_pixel(t_game *g, int x, int y, int color);
 
 /* ── Utils ───────────────────────────────────── */
 void	cleanup(t_game *g);
@@ -207,7 +203,8 @@ int		is_map_line(char *line);
 int		add_map_line(t_game_info *game, char *line);
 int		is_texture_line(char *line);
 int		parse_texture_line(t_game_info *game, char *line);
-int		change_tex_status(t_game_info *game, int i, char *line, t_directions tex);
+int		change_tex_status(t_game_info *game, int i,
+			char *line, t_directions tex);
 int		is_color_line(char *line);
 int		parse_color_line(t_game_info *game, char *line);
 int		change_floor_status(t_game_info *game, int i, char *line);
@@ -240,4 +237,4 @@ int		is_whitespace(char c);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
-# endif
+#endif

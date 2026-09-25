@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:25:17 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/24 18:57:18 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/25 19:24:07 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	direction(int step, double rayDir)
 void	init_perwall(t_data *data, double *perpWallDist)
 {
 	if (data->side == 0)
-		*perpWallDist = data->sideDistX - data->deltaDistX;
+		*perpWallDist = data->sidedist_x - data->deltadist_x;
 	else if (data->side == 1)
-		*perpWallDist = data->sideDistY - data->deltaDistY;
-	if (*perpWallDist < epsilon)
+		*perpWallDist = data->sidedist_y - data->deltadist_y;
+	if (*perpWallDist < EPSILON)
 		*perpWallDist = 0.0001;
 }
 
@@ -62,15 +62,15 @@ void	draw_parameters(int *drawStart, int *drawEnd, int lineHeight)
 void	textures_paramaters(t_game *g, t_data *data, double perpWallDist,
 	int drawStart)
 {
-	data->hitY = g->player.pos_y + perpWallDist * data->rayDirY;
-	data->hitX = g->player.pos_x + perpWallDist * data->rayDirX;
+	data->hit_y = g->player.pos_y + perpWallDist * data->raydiry;
+	data->hit_x = g->player.pos_x + perpWallDist * data->raydirx;
 	if (data->side == 0)
-		data->wallHit = data->hitY;
+		data->wallhit = data->hit_y;
 	else
-		data->wallHit = data->hitX;
-	data->wallHit -= floor(data->wallHit);
-	data->tex = select_texture(data->stepX, data->stepY, data->side);
+		data->wallhit = data->hit_x;
+	data->wallhit -= floor(data->wallhit);
+	data->tex = select_texture(data->step_x, data->step_y, data->side);
 	data->step = (double)g->tex->height / data->lineheight;
-	data->tex_x = data->wallHit * g->tex->width;
+	data->tex_x = data->wallhit * g->tex->width;
 	data->tex_pos = (drawStart - WIN_H / 2 + data->lineheight / 2) * data->step;
 }

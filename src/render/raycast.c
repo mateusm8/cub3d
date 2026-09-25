@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/24 18:58:32 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/25 19:20:39 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,23 @@ void	ray_calculation(t_game *g, t_data *data, int x)
 	hit = 0;
 	while (hit == 0)
 	{
-		if (data->sideDistX < data->sideDistY)
+		if (data->sidedist_x < data->sidedist_y)
 		{
-			data->sideDistX += data->deltaDistX;
-			data->mapX += data->stepX;
-			if (data->mapX > g->map.cols || data->mapX < 0)
+			data->sidedist_x += data->deltadist_x;
+			data->map_x += data->step_x;
+			if (data->map_x > g->map.cols || data->map_x < 0)
 				return ;
 			data->side = 0;
 		}
 		else
 		{
-			data->sideDistY += data->deltaDistY;
-			data->mapY += data->stepY;
-			if (data->mapY > g->map.rows || data->mapY < 0)
+			data->sidedist_y += data->deltadist_y;
+			data->map_y += data->step_y;
+			if (data->map_y > g->map.rows || data->map_y < 0)
 				return ;
 			data->side = 1;
 		}
-		if (g->map.grid[data->mapY][data->mapX] == '1')
+		if (g->map.grid[data->map_y][data->map_x] == '1')
 			hit = 1;
 	}
 	distancecalculation(g, data, x);
@@ -80,18 +80,18 @@ void	ray_calculation(t_game *g, t_data *data, int x)
 
 void	set_parameters(t_game *g, t_data *data, int x)
 {
-	data->mapX = (int )g->player.pos_x;
-	data->mapY = (int )g->player.pos_y;
-	data->deltaDistX = fabs(1 / data->rayDirX);
-	data->deltaDistY = fabs(1 / data->rayDirY);
-	data->rayDistX = raydistance(g->player.pos_x, data->mapX,
-			data->deltaDistX, data->stepX);
-	data->rayDistY = raydistance(g->player.pos_y, data->mapY,
-			data->deltaDistY, data->stepY);
-	if (g->map.grid[data->mapY][data->mapX] == '1')
+	data->map_x = (int )g->player.pos_x;
+	data->map_y = (int )g->player.pos_y;
+	data->deltadist_x = fabs(1 / data->raydirx);
+	data->deltadist_y = fabs(1 / data->raydiry);
+	data->raydist_x = raydistance(g->player.pos_x, data->map_x,
+			data->deltadist_x, data->step_x);
+	data->raydist_y = raydistance(g->player.pos_y, data->map_y,
+			data->deltadist_y, data->step_y);
+	if (g->map.grid[data->map_y][data->map_x] == '1')
 		return ;
-	data->sideDistX = data->rayDistX;
-	data->sideDistY = data->rayDistY;
+	data->sidedist_x = data->raydist_x;
+	data->sidedist_y = data->raydist_y;
 	ray_calculation(g, data, x);
 }
 
@@ -101,15 +101,14 @@ void	raycast(t_game *g)
 	double	camera_x;
 	int		x;
 
-	init_data(&data);
 	x = -1;
 	while (++x < g->win_w)
 	{
 		camera_x = (2.0 * (double)x) / (double)g->win_w - 1.0;
-		data.rayDirX = g->player.dir_x + g->player.plane_x * camera_x;
-		data.rayDirY = g->player.dir_y + g->player.plane_y * camera_x;
-		data.stepX = direction(data.stepX, data.rayDirX);
-		data.stepY = direction(data.stepY, data.rayDirY);
+		data.raydirx = g->player.dir_x + g->player.plane_x * camera_x;
+		data.raydiry = g->player.dir_y + g->player.plane_y * camera_x;
+		data.step_x = direction(data.step_x, data.raydirx);
+		data.step_y = direction(data.step_y, data.raydiry);
 		set_parameters(g, &data, x);
 	}
 }

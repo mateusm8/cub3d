@@ -6,25 +6,11 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:08:48 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/24 19:12:20 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/24 19:50:24 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_data(t_data *data)
-{
-	data->rayDirX = 0.0;
-	data->rayDirY = 0.0;
-	data->stepX = 0;
-	data->stepY = 0;
-	data->deltaDistX = 0.0;
-	data->deltaDistY = 0.0;
-	data->mapX = 0;
-	data->mapX = 0;
-	data->rayDirX = 0.0;
-	data->rayDirX = 0.0;
-}
 
 int	load_textures(t_game *g)
 {

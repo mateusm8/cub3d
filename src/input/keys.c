@@ -6,13 +6,13 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 23:01:29 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/25 23:17:53 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/25 23:21:14 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void update_player(t_game *g)
+void	update_player(t_game *g)
 {
 	if (g->keys[K_W])
 		relative_movement(g, 1);

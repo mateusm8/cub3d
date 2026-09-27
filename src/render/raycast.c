@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/25 19:20:39 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/09/27 19:06:32 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ray_calculation(t_game *g, t_data *data, int x)
 		{
 			data->sidedist_x += data->deltadist_x;
 			data->map_x += data->step_x;
-			if (data->map_x > g->map.cols || data->map_x < 0)
+			if (data->map_x >= g->map.cols || data->map_x < 0)
 				return ;
 			data->side = 0;
 		}
@@ -68,7 +68,7 @@ void	ray_calculation(t_game *g, t_data *data, int x)
 		{
 			data->sidedist_y += data->deltadist_y;
 			data->map_y += data->step_y;
-			if (data->map_y > g->map.rows || data->map_y < 0)
+			if (data->map_y >= g->map.rows || data->map_y < 0)
 				return ;
 			data->side = 1;
 		}

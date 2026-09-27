@@ -183,6 +183,7 @@ int		handle_close(t_game *g);
 void	turning_player(t_game *g, double angle);
 void	relative_movement(t_game *g, int code);
 void	update_player(t_game *g);
+int		player_collision(t_game *g, double x, double y);
 
 /* ── Textures ───────────────────────────────────── */
 
@@ -204,6 +205,7 @@ void	put_pixel(t_game *g, int x, int y, int color);
 /* ── Utils ───────────────────────────────────── */
 void	cleanup(t_game *g);
 int		error_exit(t_game *g, char *msg);
+int		is_valid_position(t_game *g, int x, int y);
 
 /* ── Parsing ───────────────────────────────────── */
 

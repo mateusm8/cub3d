@@ -20,7 +20,8 @@ INIT_SRC	= $(SRC_DIR)init/init_game.c \
 			  $(SRC_DIR)init/init_texture.c
 
 INPUT_SRC	= $(SRC_DIR)input/keys.c \
-			  $(SRC_DIR)input/movement.c
+			  $(SRC_DIR)input/movement.c \
+			  $(SRC_DIR)input/collision.c 
 
 RENDER_SRC	= $(SRC_DIR)render/draw.c \
 			  $(SRC_DIR)render/raycast.c \

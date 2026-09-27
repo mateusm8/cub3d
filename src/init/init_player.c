@@ -16,23 +16,23 @@ static void	direction_player(t_game *g, t_game_info *game)
 {
 	if (game->player.dir == 'N')
 	{
-		g->player.dir_x = -1.0;
-		g->player.dir_y = 0.0;
-	}
-	if (game->player.dir == 'S')
-	{
-		g->player.dir_x = 1.0;
-		g->player.dir_y = 0.0;
-	}
-	if (game->player.dir == 'W')
-	{
 		g->player.dir_x = 0.0;
 		g->player.dir_y = -1.0;
 	}
-	if (game->player.dir == 'E')
+	if (game->player.dir == 'S')
 	{
 		g->player.dir_x = 0.0;
 		g->player.dir_y = 1.0;
+	}
+	if (game->player.dir == 'W')
+	{
+		g->player.dir_x = -1.0;
+		g->player.dir_y = 0.0;
+	}
+	if (game->player.dir == 'E')
+	{
+		g->player.dir_x = 1.0;
+		g->player.dir_y = 0.0;
 	}
 }
 

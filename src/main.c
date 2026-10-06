@@ -26,9 +26,10 @@ int	main(int ac, char **av)
 	parse_one(game);
 	transfer_game_data(&g, game);
 	if (!init_game(&g))
-		return (error_exit(&g, "Init failed"), 1);
+		return (error_exit(&g, "Init failed"), free_game_info(game), 1);
 	if (load_textures(&g))
-		return (error_exit(&g, "Init Textures failed\n"), 1);
+		return (error_exit(&g, "Init textures failed"),
+			free_game_info(game), 1);
 	init_player(&g, game);
 	mlx_loop_hook(g.mlx, render_frame, &g);
 	mlx_hook(g.win, 2, 1L << 0, handle_key, &g);

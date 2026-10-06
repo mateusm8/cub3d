@@ -46,8 +46,7 @@ static void	free_textures(t_game *g)
 void	cleanup(t_game *g)
 {
 	ft_free_map(&g->map);
-	if (g->mlx)
-		free_textures(g);
+	free_textures(g);
 	if (g->img && g->mlx)
 		mlx_destroy_image(g->mlx, g->img);
 	if (g->win && g->mlx)

@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 18:19:57 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/27 19:06:32 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/10/06 18:24:13 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	distancecalculation(t_game *g, t_data *data, int x)
 	y = drawstart;
 	while (y <= drawend)
 	{
-		data->tex_y = (int)data->tex_pos & (g->tex->height - 1);
+		data->tex_y = (int)data->tex_pos % (g->tex[data->tex].height);
 		data->tex_pos += data->step;
 		data->pixel = g->tex[data->tex].addr + (data->tex_y
 				* g->tex[data->tex].line_len

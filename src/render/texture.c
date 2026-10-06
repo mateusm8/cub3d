@@ -6,7 +6,7 @@
 /*   By: nalfonso <nalfonso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 20:25:17 by nalfonso          #+#    #+#             */
-/*   Updated: 2026/09/25 19:24:07 by nalfonso         ###   ########.fr       */
+/*   Updated: 2026/10/06 18:26:39 by nalfonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	draw_parameters(int *drawStart, int *drawEnd, int lineHeight)
 	*drawStart = -lineHeight / 2 + (WIN_H / 2);
 	*drawEnd = (lineHeight / 2) + (WIN_H / 2);
 	if (*drawStart < 0)
-		drawStart = 0;
+		*drawStart = 0;
 	if (*drawEnd >= WIN_H)
 		*drawEnd = WIN_H - 1;
 }
@@ -70,7 +70,7 @@ void	textures_paramaters(t_game *g, t_data *data, double perpWallDist,
 		data->wallhit = data->hit_x;
 	data->wallhit -= floor(data->wallhit);
 	data->tex = select_texture(data->step_x, data->step_y, data->side);
-	data->step = (double)g->tex->height / data->lineheight;
-	data->tex_x = data->wallhit * g->tex->width;
+	data->step = (double)g->tex[data->tex].height / data->lineheight;
+	data->tex_x = data->wallhit * g->tex[data->tex].width;
 	data->tex_pos = (drawStart - WIN_H / 2 + data->lineheight / 2) * data->step;
 }
